@@ -6,15 +6,35 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://hsszyman.github.io/categories/blog.xml</loc>
+  <lastmod>2019-06-27T22:02:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/cat_programming.xml</loc>
+  <lastmod>2019-06-27T22:02:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/emacs.xml</loc>
+  <lastmod>2019-06-27T22:02:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/first.xml</loc>
+  <lastmod>2019-06-27T21:56:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/meta.xml</loc>
+  <lastmod>2019-06-27T22:02:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://hsszyman.github.io/galleries/rss.xml</loc>
   <lastmod>2019-06-27T21:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/rss.xml</loc>
-  <lastmod>2019-06-27T21:49:00Z</lastmod>
+  <lastmod>2019-06-27T22:02:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/sitemap.xml</loc>
-  <lastmod>2019-06-27T21:49:00Z</lastmod>
+  <lastmod>2019-06-27T22:02:00Z</lastmod>
  </sitemap>
 </sitemapindex>
