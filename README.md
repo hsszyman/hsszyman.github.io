@@ -1,1 +1,0 @@
-# hsszyman.github.io

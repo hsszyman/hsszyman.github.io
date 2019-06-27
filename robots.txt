@@ -1,0 +1,4 @@
+Sitemap: https://hsszyman.github.io/sitemapindex.xml
+
+User-Agent: *
+Host: hsszyman.github.io
