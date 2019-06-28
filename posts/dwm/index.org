@@ -2,8 +2,8 @@
 .. title: Hacking DWM : Holdbar
 .. slug: dwm
 .. date: 2019-06-27 18:14:25 UTC-04:00
-.. tags: dwm, C, Linux
-.. category: Programming, System Management
+.. tags: dwm, C, linux, shell scripting
+.. category: Programming
 .. link: 
 .. description: Holdbar
 .. type: text
@@ -18,19 +18,6 @@ Dwm is a window manager for Linux, and while not as fully featured as something 
 In a later blog post I'll go into more details on the unique aspects of dwm, but for today let's look at hacking it.
 
 
-* Organization
-  | Filename | Role                                                    | Difficulty               |
-  |----------+---------------------------------------------------------+--------------------------|
-  | config.h | quick configuration meant to be edited frequently       | Easy to configure        |
-  | dwm.c    | More in depth configuration, being the main source code | Difficult, but rewarding |
-  |----------+---------------------------------------------------------+--------------------------|
-  =
-
-      
-
-Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.
-
-For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations
 
 * Coming up with a problem to solve
 One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.
@@ -38,4 +25,177 @@ One feature I try to implement on any new window manager I use is only showing t
 In short, we want the bar only to be seen when held, what I call a holdbar. 
 
 * Setting up the environment
-  -- to be continued
+Before you can get started with dwm you need to actually install it. 
+Because of suckless's [[https://suckless.org/philosophy/][philosophy]] you will need to download download the source code. 
+For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.
+
+Go ahead and download the dwm sourcecode by typing
+#+BEGIN_SRC sh
+  git clone https://git.suckless.org/dwm
+#+END_SRC
+
+then let's cd into the new git directory and prepare our local repo for setting up patches.
+
+#+BEGIN_SRC sh
+  cd dwm
+  git branch new_feature
+  git checkout new_feature
+#+END_SRC
+
+
+* Understanding The Structure
+  The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often
+  | Filename     | Role                                                                                | notes                                                     |
+  |--------------+-------------------------------------------------------------------------------------+-----------------------------------------------------------|
+  | config.def.h | Used to apply patch code to config files,                                           | Generates config.h upon compile                           |
+  | config.h     | quick configuration meant to be edited frequently, updates dwm on make clean config | Used for making edits that will effect dwm upon recompile |
+  | dwm.c        | More in depth configuration, being the main source code                             |                                                           |
+  |--------------+-------------------------------------------------------------------------------------+-----------------------------------------------------------|
+  =
+
+      
+
+Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.
+
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h
+
+* Writing your patch
+Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add 
+Then, you'll want to write a *detailed* comment for your commit
+#+BEGIN_SRC sh
+  git commit -m "SUPER DETAILED AND AWESOME DESCRIPTION HERE"
+#+END_SRC
+
+Suckless has certain [[https://suckless.org/hacking/][guidelines]] to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you
+
+#+BEGIN_SRC sh
+  #/usr/bin/sh
+  git format-patch --stdout HEAD^ > $1-$(date +"%Y%m%d")-$(git rev-parse --short $(git log | awk 'NR==1{print $2}')).diff
+#+END_SRC
+
+Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like
+#+BEGIN_SRC sh
+  ./gen-patch dwm-holdbar
+#+END_SRC
+This will generate a properly named patch for you.
+
+After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install! 
+
+Just for those curious here is the holdbar patch that I wrote
+
+#+BEGIN_SRC diff
+  From 6663a23fc0abce840bbbd31cec36434ee52a93b3 Mon Sep 17 00:00:00 2001
+  From: hsszyman <hsszyman@gmail.com>
+  Date: Wed, 26 Jun 2019 13:48:41 -0400
+  Subject: [PATCH] holdbar
+
+  ---
+   config.def.h |  5 +++--
+   dwm.c        | 24 ++++++++++++++++++++++--
+   2 files changed, 25 insertions(+), 4 deletions(-)
+
+  diff --git a/config.def.h b/config.def.h
+  index 1c0b587..82c88d5 100644
+  --- a/config.def.h
+  +++ b/config.def.h
+  @@ -3,7 +3,7 @@
+   /* appearance */
+   static const unsigned int borderpx  = 1;        /* border pixel of windows */
+   static const unsigned int snap      = 32;       /* snap pixel */
+  -static const int showbar            = 1;        /* 0 means no bar */
+  +static const int showbar            = 0;        /* 0 means no bar */
+   static const int topbar             = 1;        /* 0 means bottom bar */
+   static const char *fonts[]          = { "monospace:size=10" };
+   static const char dmenufont[]       = "monospace:size=10";
+  @@ -44,7 +44,7 @@ static const Layout layouts[] = {
+   };
+ 
+   /* key definitions */
+  -#define MODKEY Mod1Mask
+  +#define MODKEY Mod4Mask
+   #define TAGKEYS(KEY,TAG) \
+	  { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	  { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+  @@ -94,6 +94,7 @@ static Key keys[] = {
+	  TAGKEYS(                        XK_8,                      7)
+	  TAGKEYS(                        XK_9,                      8)
+	  { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  +        { 0,                            XK_Super_L,holdbar,         {0} },
+   };
+ 
+   /* button definitions */
+  diff --git a/dwm.c b/dwm.c
+  index 4465af1..1933e2d 100644
+  --- a/dwm.c
+  +++ b/dwm.c
+  @@ -176,6 +176,7 @@ static void grabbuttons(Client *c, int focused);
+   static void grabkeys(void);
+   static void incnmaster(const Arg *arg);
+   static void keypress(XEvent *e);
+  +static void keyrelease(XEvent *e);
+   static void killclient(const Arg *arg);
+   static void manage(Window w, XWindowAttributes *wa);
+   static void mappingnotify(XEvent *e);
+  @@ -210,6 +211,7 @@ static void tag(const Arg *arg);
+   static void tagmon(const Arg *arg);
+   static void tile(Monitor *);
+   static void togglebar(const Arg *arg);
+  +static void holdbar(const Arg *arg);
+   static void togglefloating(const Arg *arg);
+   static void toggletag(const Arg *arg);
+   static void toggleview(const Arg *arg);
+  @@ -245,6 +247,7 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
+   static unsigned int numlockmask = 0;
+   static void (*handler[LASTEvent]) (XEvent *) = {
+	  [ButtonPress] = buttonpress,
+  +        [ButtonRelease] = keyrelease,
+	  [ClientMessage] = clientmessage,
+	  [ConfigureRequest] = configurerequest,
+	  [ConfigureNotify] = configurenotify,
+  @@ -252,6 +255,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
+	  [EnterNotify] = enternotify,
+	  [Expose] = expose,
+	  [FocusIn] = focusin,
+  +        [KeyRelease] = keyrelease,
+	  [KeyPress] = keypress,
+	  [MappingNotify] = mappingnotify,
+	  [MapRequest] = maprequest,
+  @@ -275,6 +279,24 @@ static Window root, wmcheckwin;
+   struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
+ 
+   /* function implementations */
+  +
+  +void
+  +keyrelease(XEvent *e) {
+  +        if (e->xkey.keycode == XKeysymToKeycode(dpy, XK_Super_L)) {
+  +                selmon->showbar = 0;
+  +                updatebarpos(selmon);
+  +                XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+  +                arrange(selmon);
+  +        }
+  +}
+  +
+  +void
+  +holdbar(const Arg *arg)
+  +{
+  +        selmon->showbar = 1;
+  +        updatebarpos(selmon);
+  +        XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+  +}
+   void
+   applyrules(Client *c)
+   {
+  @@ -1826,9 +1848,7 @@ updatebarpos(Monitor *m)
+	  m->wy = m->my;
+	  m->wh = m->mh;
+	  if (m->showbar) {
+  -		m->wh -= bh;
+		  m->by = m->topbar ? m->wy : m->wy + m->wh;
+  -		m->wy = m->topbar ? m->wy + bh : m->wy;
+	  } else
+		  m->by = -bh;
+   }
+  -- 
+  2.22.0
+
+#+END_SRC

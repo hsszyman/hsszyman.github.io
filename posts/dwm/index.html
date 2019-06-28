@@ -21,7 +21,8 @@
 <meta property="article:published_time" content="2019-06-27T18:14:25-04:00">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="dwm">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="shell scripting">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -95,9 +96,9 @@
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org47fcbb3" class="outline-2">
-<h2 id="org47fcbb3">DWM In a Nutshell</h2>
-<div class="outline-text-2" id="text-org47fcbb3">
+    <div id="outline-container-org4042b68" class="outline-2">
+<h2 id="org4042b68">DWM In a Nutshell</h2>
+<div class="outline-text-2" id="text-org4042b68">
 <p>
 Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.<br></p>
 
@@ -107,9 +108,47 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 </div>
 
 
-<div id="outline-container-orgb7bc4fc" class="outline-2">
-<h2 id="orgb7bc4fc">Organization</h2>
-<div class="outline-text-2" id="text-orgb7bc4fc">
+
+<div id="outline-container-org4eb2800" class="outline-2">
+<h2 id="org4eb2800">Coming up with a problem to solve</h2>
+<div class="outline-text-2" id="text-org4eb2800">
+<p>
+One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.<br></p>
+
+<p>
+In short, we want the bar only to be seen when held, what I call a holdbar.<br></p>
+</div>
+</div>
+
+<div id="outline-container-orgb824097" class="outline-2">
+<h2 id="orgb824097">Setting up the environment</h2>
+<div class="outline-text-2" id="text-orgb824097">
+<p>
+Before you can get started with dwm you need to actually install it.<br>
+Because of suckless's <a href="https://suckless.org/philosophy/">philosophy</a> you will need to download download the source code.<br>
+For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.<br></p>
+
+<p>
+Go ahead and download the dwm sourcecode by typing<br></p>
+<div class="highlight"><pre><span></span>git clone https://git.suckless.org/dwm
+</pre></div>
+
+<p>
+then let's cd into the new git directory and prepare our local repo for setting up patches.<br></p>
+
+<div class="highlight"><pre><span></span><span class="nb">cd</span> dwm
+git branch new_feature
+git checkout new_feature
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-orgebebf75" class="outline-2">
+<h2 id="orgebebf75">Understanding The Structure</h2>
+<div class="outline-text-2" id="text-orgebebf75">
+<p>
+The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often<br></p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <colgroup>
 <col class="org-left">
@@ -119,18 +158,23 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 <thead><tr>
 <th scope="col" class="org-left">Filename</th>
 <th scope="col" class="org-left">Role</th>
-<th scope="col" class="org-left">Difficulty</th>
+<th scope="col" class="org-left">notes</th>
 </tr></thead>
 <tbody>
 <tr>
+<td class="org-left">config.def.h</td>
+<td class="org-left">Used to apply patch code to config files,</td>
+<td class="org-left">Generates config.h upon compile</td>
+</tr>
+<tr>
 <td class="org-left">config.h</td>
-<td class="org-left">quick configuration meant to be edited frequently</td>
-<td class="org-left">Easy to configure</td>
+<td class="org-left">quick configuration meant to be edited frequently, updates dwm on make clean config</td>
+<td class="org-left">Used for making edits that will effect dwm upon recompile</td>
 </tr>
 <tr>
 <td class="org-left">dwm.c</td>
 <td class="org-left">More in depth configuration, being the main source code</td>
-<td class="org-left">Difficult, but rewarding</td>
+<td class="org-left"> </td>
 </tr>
 </tbody>
 </table>
@@ -143,33 +187,161 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.<br></p>
 
 <p>
-For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations<br></p>
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h<br></p>
 </div>
 </div>
 
-<div id="outline-container-org0e1dab7" class="outline-2">
-<h2 id="org0e1dab7">Coming up with a problem to solve</h2>
-<div class="outline-text-2" id="text-org0e1dab7">
+<div id="outline-container-orgd604269" class="outline-2">
+<h2 id="orgd604269">Writing your patch</h2>
+<div class="outline-text-2" id="text-orgd604269">
 <p>
-One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.<br></p>
+Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add<br>
+Then, you'll want to write a <b>detailed</b> comment for your commit<br></p>
+<div class="highlight"><pre><span></span>git commit -m <span class="s2">"SUPER DETAILED AND AWESOME DESCRIPTION HERE"</span>
+</pre></div>
 
 <p>
-In short, we want the bar only to be seen when held, what I call a holdbar.<br></p>
-</div>
-</div>
+Suckless has certain <a href="https://suckless.org/hacking/">guidelines</a> to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you<br></p>
 
-<div id="outline-container-orgf306859" class="outline-2">
-<h2 id="orgf306859">Setting up the environment</h2>
-<div class="outline-text-2" id="text-orgf306859">
+<div class="highlight"><pre><span></span><span class="c1">#/usr/bin/sh</span>
+git format-patch --stdout HEAD^ &gt; <span class="nv">$1</span>-<span class="k">$(</span>date +<span class="s2">"%Y%m%d"</span><span class="k">)</span>-<span class="k">$(</span>git rev-parse --short <span class="k">$(</span>git log <span class="p">|</span> awk <span class="s1">'NR==1{print $2}'</span><span class="k">))</span>.diff
+</pre></div>
+
 <p>
-– to be continued<br></p>
+Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like<br></p>
+<div class="highlight"><pre><span></span>./gen-patch dwm-holdbar
+</pre></div>
+<p>
+This will generate a properly named patch for you.<br></p>
+
+<p>
+After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install!<br></p>
+
+<p>
+Just for those curious here is the holdbar patch that I wrote<br></p>
+
+<div class="highlight"><pre><span></span>From 6663a23fc0abce840bbbd31cec36434ee52a93b3 Mon Sep 17 00:00:00 2001
+From: hsszyman &lt;hsszyman@gmail.com&gt;
+Date: Wed, 26 Jun 2019 13:48:41 -0400
+Subject: [PATCH] holdbar
+
+---
+ config.def.h |  5 +++--
+ dwm.c        | 24 ++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 1c0b587..82c88d5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -3,7 +3,7 @@
+ /* appearance */
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+-static const int showbar            = 1;        /* 0 means no bar */
++static const int showbar            = 0;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+ static const char *fonts[]          = { "monospace:size=10" };
+ static const char dmenufont[]       = "monospace:size=10";
+@@ -44,7 +44,7 @@ static const Layout layouts[] = {
+ };
+
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+	{ MODKEY,                       KEY,      view,           {.ui = 1 &lt;&lt; TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 &lt;&lt; TAG} }, \
+@@ -94,6 +94,7 @@ static Key keys[] = {
+	TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++        { 0,                            XK_Super_L,holdbar,         {0} },
+ };
+
+ /* button definitions */
+diff --git a/dwm.c b/dwm.c
+index 4465af1..1933e2d 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -176,6 +176,7 @@ static void grabbuttons(Client *c, int focused);
+ static void grabkeys(void);
+ static void incnmaster(const Arg *arg);
+ static void keypress(XEvent *e);
++static void keyrelease(XEvent *e);
+ static void killclient(const Arg *arg);
+ static void manage(Window w, XWindowAttributes *wa);
+ static void mappingnotify(XEvent *e);
+@@ -210,6 +211,7 @@ static void tag(const Arg *arg);
+ static void tagmon(const Arg *arg);
+ static void tile(Monitor *);
+ static void togglebar(const Arg *arg);
++static void holdbar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+@@ -245,6 +247,7 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
+ static unsigned int numlockmask = 0;
+ static void (*handler[LASTEvent]) (XEvent *) = {
+	[ButtonPress] = buttonpress,
++        [ButtonRelease] = keyrelease,
+	[ClientMessage] = clientmessage,
+	[ConfigureRequest] = configurerequest,
+	[ConfigureNotify] = configurenotify,
+@@ -252,6 +255,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
+	[EnterNotify] = enternotify,
+	[Expose] = expose,
+	[FocusIn] = focusin,
++        [KeyRelease] = keyrelease,
+	[KeyPress] = keypress,
+	[MappingNotify] = mappingnotify,
+	[MapRequest] = maprequest,
+@@ -275,6 +279,24 @@ static Window root, wmcheckwin;
+ struct NumTags { char limitexceeded[LENGTH(tags) &gt; 31 ? -1 : 1]; };
+
+ /* function implementations */
++
++void
++keyrelease(XEvent *e) {
++        if (e-&gt;xkey.keycode == XKeysymToKeycode(dpy, XK_Super_L)) {
++                selmon-&gt;showbar = 0;
++                updatebarpos(selmon);
++                XMoveResizeWindow(dpy, selmon-&gt;barwin, selmon-&gt;wx, selmon-&gt;by, selmon-&gt;ww, bh);
++                arrange(selmon);
++        }
++}
++
++void
++holdbar(const Arg *arg)
++{
++        selmon-&gt;showbar = 1;
++        updatebarpos(selmon);
++        XMoveResizeWindow(dpy, selmon-&gt;barwin, selmon-&gt;wx, selmon-&gt;by, selmon-&gt;ww, bh);
++}
+ void
+ applyrules(Client *c)
+ {
+@@ -1826,9 +1848,7 @@ updatebarpos(Monitor *m)
+	m-&gt;wy = m-&gt;my;
+	m-&gt;wh = m-&gt;mh;
+	if (m-&gt;showbar) {
+-		m-&gt;wh -= bh;
+		m-&gt;by = m-&gt;topbar ? m-&gt;wy : m-&gt;wy + m-&gt;wh;
+-		m-&gt;wy = m-&gt;topbar ? m-&gt;wy + bh : m-&gt;wy;
+	} else
+		m-&gt;by = -bh;
+ }
+-- 
+2.22.0
+</pre></div>
 </div>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/c/" rel="tag">C</a></li>
             <li><a class="tag p-category" href="../../categories/dwm/" rel="tag">dwm</a></li>
-            <li><a class="tag p-category" href="../../categories/linux/" rel="tag">Linux</a></li>
+            <li><a class="tag p-category" href="../../categories/linux/" rel="tag">linux</a></li>
+            <li><a class="tag p-category" href="../../categories/shell-scripting/" rel="tag">shell scripting</a></li>
         </ul>
 <ul class="pager hidden-print">
 <li class="previous">
