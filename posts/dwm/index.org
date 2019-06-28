@@ -10,7 +10,8 @@
 
 #+END_COMMENT
 
+* DWM In a Nutshell
   Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. 
 While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.
 
-Today i'm going to show an example of how DWM configuration works, how to clone dwm itself, and how to write a patch.
+
