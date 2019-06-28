@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about Linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Thu, 27 Jun 2019 22:21:45 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;p&gt;
+  Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. 
+While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.
+&lt;/p&gt;
+
+&lt;p&gt;
+Today i'm going to show an example of how DWM configuration works, how to clone dwm itself, and how to write a patch.
+&lt;/p&gt;</description><category>C</category><category>dwm</category><category>Linux</category><guid>https://hsszyman.github.io/posts/dwm/</guid><pubDate>Thu, 27 Jun 2019 22:14:25 GMT</pubDate></item></channel></rss>
