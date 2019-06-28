@@ -1,10 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about Linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Fri, 28 Jun 2019 01:25:53 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-org23345f8" class="outline-2"&gt;
-&lt;h2 id="org23345f8"&gt;DWM In a Nutshell&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org23345f8"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about Linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Fri, 28 Jun 2019 02:01:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-org47fcbb3" class="outline-2"&gt;
+&lt;h2 id="org47fcbb3"&gt;DWM In a Nutshell&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org47fcbb3"&gt;
 &lt;p&gt;
-  Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. 
-While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.
+Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+In a later blog post I'll go into more details on the unique aspects of dwm, but for today let's look at hacking it.&lt;br&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-orgb7bc4fc" class="outline-2"&gt;
+&lt;h2 id="orgb7bc4fc"&gt;Organization&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb7bc4fc"&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th scope="col" class="org-left"&gt;Filename&lt;/th&gt;
+&lt;th scope="col" class="org-left"&gt;Role&lt;/th&gt;
+&lt;th scope="col" class="org-left"&gt;Difficulty&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-left"&gt;config.h&lt;/td&gt;
+&lt;td class="org-left"&gt;quick configuration meant to be edited frequently&lt;/td&gt;
+&lt;td class="org-left"&gt;Easy to configure&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-left"&gt;dwm.c&lt;/td&gt;
+&lt;td class="org-left"&gt;More in depth configuration, being the main source code&lt;/td&gt;
+&lt;td class="org-left"&gt;Difficult, but rewarding&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+=&lt;br&gt;
+&lt;/p&gt;
+
+
+
+&lt;p&gt;
+Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations&lt;br&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org0e1dab7" class="outline-2"&gt;
+&lt;h2 id="org0e1dab7"&gt;Coming up with a problem to solve&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0e1dab7"&gt;
+&lt;p&gt;
+One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+In short, we want the bar only to be seen when held, what I call a holdbar.&lt;br&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgf306859" class="outline-2"&gt;
+&lt;h2 id="orgf306859"&gt;Setting up the environment&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf306859"&gt;
+&lt;p&gt;
+– to be continued&lt;br&gt;
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description><category>C</category><category>dwm</category><category>Linux</category><guid>https://hsszyman.github.io/posts/dwm/</guid><pubDate>Thu, 27 Jun 2019 22:14:25 GMT</pubDate></item></channel></rss>

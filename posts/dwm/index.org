@@ -10,8 +10,32 @@
 
 #+END_COMMENT
 
+#+OPTIONS: \n:t
+
 * DWM In a Nutshell
-  Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. 
-While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.
+Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.
+
+In a later blog post I'll go into more details on the unique aspects of dwm, but for today let's look at hacking it.
 
 
+* Organization
+  | Filename | Role                                                    | Difficulty               |
+  |----------+---------------------------------------------------------+--------------------------|
+  | config.h | quick configuration meant to be edited frequently       | Easy to configure        |
+  | dwm.c    | More in depth configuration, being the main source code | Difficult, but rewarding |
+  |----------+---------------------------------------------------------+--------------------------|
+  =
+
+      
+
+Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.
+
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations
+
+* Coming up with a problem to solve
+One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.
+
+In short, we want the bar only to be seen when held, what I call a holdbar. 
+
+* Setting up the environment
+  -- to be continued
