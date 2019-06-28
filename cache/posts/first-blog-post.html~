@@ -1,0 +1,20 @@
+<p>
+Finally got my new blog set up. It uses nikola as a static site generator and an orgmode plugin to play nicely with emacs and convert .org files into html ones. 
+</p>
+
+<p>
+The code that makes posting a new blogpost relatively easy is this bit of lisp code i put in my config file
+</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">setq</span> <span class="nv">blog-repo</span> <span class="s">&quot;~/repos/hsszyman.github.io/&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">defun</span> <span class="nv">new-post</span> <span class="p">(</span><span class="nf">title</span><span class="p">)</span>
+  <span class="s">&quot;New Blog Post&quot;</span>
+  <span class="p">(</span><span class="nf">interactive</span> <span class="s">&quot;sEnter post title: &quot;</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">cd</span> <span class="nv">blog-repo</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">setq</span> <span class="nv">new-post-cmd</span> <span class="p">(</span><span class="nf">concat</span> <span class="s">&quot;nikola new_post -f orgmode -t &quot;</span> <span class="s">&quot;\&quot;&quot;</span> <span class="nv">title</span> <span class="s">&quot;\&quot;&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">shell-command</span> <span class="nv">new-post-cmd</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">setq</span> <span class="nv">new-post-file</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">blog-repo</span>
+			      <span class="s">&quot;/posts/&quot;</span>
+			      <span class="p">(</span><span class="nf">replace-regexp-in-string</span> <span class="s">&quot; &quot;</span> <span class="s">&quot;-&quot;</span> <span class="nv">title</span><span class="p">)</span>
+			      <span class="s">&quot;.org&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">find-file</span> <span class="nv">new-post-file</span><span class="p">))</span>
+</pre></div>

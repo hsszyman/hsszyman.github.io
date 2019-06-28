@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="T">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hayden's Tinkering Blog</title>
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="canonical" href="https://hsszyman.github.io/">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/dwm/" type="text/html">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://hsszyman.github.io/">
+
+            <span id="blog-title">Hayden's Tinkering Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+    
+        
+
+    
+        
+    <div class="postindex">
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/dwm/" class="u-url">Hacking DWM : Holdbar</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hayden Szymanski
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/dwm/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-27T18:14:25-04:00" itemprop="datePublished" title="2019-06-27 18:14">2019-06-27 18:14</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div id="outline-container-org4042b68" class="outline-2">
+<h2 id="org4042b68">DWM In a Nutshell</h2>
+<div class="outline-text-2" id="text-org4042b68">
+<p>
+Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.<br></p>
+
+<p>
+In a later blog post I'll go into more details on the unique aspects of dwm, but for today let's look at hacking it.<br></p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org4eb2800" class="outline-2">
+<h2 id="org4eb2800">Coming up with a problem to solve</h2>
+<div class="outline-text-2" id="text-org4eb2800">
+<p>
+One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.<br></p>
+
+<p>
+In short, we want the bar only to be seen when held, what I call a holdbar.<br></p>
+</div>
+</div>
+
+<div id="outline-container-orgb824097" class="outline-2">
+<h2 id="orgb824097">Setting up the environment</h2>
+<div class="outline-text-2" id="text-orgb824097">
+<p>
+Before you can get started with dwm you need to actually install it.<br>
+Because of suckless's <a href="https://suckless.org/philosophy/">philosophy</a> you will need to download download the source code.<br>
+For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.<br></p>
+
+<p>
+Go ahead and download the dwm sourcecode by typing<br></p>
+<div class="highlight"><pre><span></span>git clone https://git.suckless.org/dwm
+</pre></div>
+
+<p>
+then let's cd into the new git directory and prepare our local repo for setting up patches.<br></p>
+
+<div class="highlight"><pre><span></span><span class="nb">cd</span> dwm
+git branch new_feature
+git checkout new_feature
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-orgebebf75" class="outline-2">
+<h2 id="orgebebf75">Understanding The Structure</h2>
+<div class="outline-text-2" id="text-orgebebf75">
+<p>
+The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often<br></p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead><tr>
+<th scope="col" class="org-left">Filename</th>
+<th scope="col" class="org-left">Role</th>
+<th scope="col" class="org-left">notes</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="org-left">config.def.h</td>
+<td class="org-left">Used to apply patch code to config files,</td>
+<td class="org-left">Generates config.h upon compile</td>
+</tr>
+<tr>
+<td class="org-left">config.h</td>
+<td class="org-left">quick configuration meant to be edited frequently, updates dwm on make clean config</td>
+<td class="org-left">Used for making edits that will effect dwm upon recompile</td>
+</tr>
+<tr>
+<td class="org-left">dwm.c</td>
+<td class="org-left">More in depth configuration, being the main source code</td>
+<td class="org-left"> </td>
+</tr>
+</tbody>
+</table>
+<p>
+=<br></p>
+
+
+
+<p>
+Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.<br></p>
+
+<p>
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h<br></p>
+</div>
+</div>
+
+<div id="outline-container-orgd604269" class="outline-2">
+<h2 id="orgd604269">Writing your patch</h2>
+<div class="outline-text-2" id="text-orgd604269">
+<p>
+Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add<br>
+Then, you'll want to write a <b>detailed</b> comment for your commit<br></p>
+<div class="highlight"><pre><span></span>git commit -m <span class="s2">"SUPER DETAILED AND AWESOME DESCRIPTION HERE"</span>
+</pre></div>
+
+<p>
+Suckless has certain <a href="https://suckless.org/hacking/">guidelines</a> to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you<br></p>
+
+<div class="highlight"><pre><span></span><span class="c1">#/usr/bin/sh</span>
+git format-patch --stdout HEAD^ &gt; <span class="nv">$1</span>-<span class="k">$(</span>date +<span class="s2">"%Y%m%d"</span><span class="k">)</span>-<span class="k">$(</span>git rev-parse --short <span class="k">$(</span>git log <span class="p">|</span> awk <span class="s1">'NR==1{print $2}'</span><span class="k">))</span>.diff
+</pre></div>
+
+<p>
+Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like<br></p>
+<div class="highlight"><pre><span></span>./gen-patch dwm-holdbar
+</pre></div>
+<p>
+This will generate a properly named patch for you.<br></p>
+
+<p>
+After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install!<br></p>
+
+<p>
+Just for those curious here is the holdbar patch that I wrote<br></p>
+
+<div class="highlight"><pre><span></span>From 6663a23fc0abce840bbbd31cec36434ee52a93b3 Mon Sep 17 00:00:00 2001
+From: hsszyman &lt;hsszyman@gmail.com&gt;
+Date: Wed, 26 Jun 2019 13:48:41 -0400
+Subject: [PATCH] holdbar
+
+---
+ config.def.h |  5 +++--
+ dwm.c        | 24 ++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 1c0b587..82c88d5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -3,7 +3,7 @@
+ /* appearance */
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+-static const int showbar            = 1;        /* 0 means no bar */
++static const int showbar            = 0;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+ static const char *fonts[]          = { "monospace:size=10" };
+ static const char dmenufont[]       = "monospace:size=10";
+@@ -44,7 +44,7 @@ static const Layout layouts[] = {
+ };
+
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+	{ MODKEY,                       KEY,      view,           {.ui = 1 &lt;&lt; TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 &lt;&lt; TAG} }, \
+@@ -94,6 +94,7 @@ static Key keys[] = {
+	TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++        { 0,                            XK_Super_L,holdbar,         {0} },
+ };
+
+ /* button definitions */
+diff --git a/dwm.c b/dwm.c
+index 4465af1..1933e2d 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -176,6 +176,7 @@ static void grabbuttons(Client *c, int focused);
+ static void grabkeys(void);
+ static void incnmaster(const Arg *arg);
+ static void keypress(XEvent *e);
++static void keyrelease(XEvent *e);
+ static void killclient(const Arg *arg);
+ static void manage(Window w, XWindowAttributes *wa);
+ static void mappingnotify(XEvent *e);
+@@ -210,6 +211,7 @@ static void tag(const Arg *arg);
+ static void tagmon(const Arg *arg);
+ static void tile(Monitor *);
+ static void togglebar(const Arg *arg);
++static void holdbar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+@@ -245,6 +247,7 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
+ static unsigned int numlockmask = 0;
+ static void (*handler[LASTEvent]) (XEvent *) = {
+	[ButtonPress] = buttonpress,
++        [ButtonRelease] = keyrelease,
+	[ClientMessage] = clientmessage,
+	[ConfigureRequest] = configurerequest,
+	[ConfigureNotify] = configurenotify,
+@@ -252,6 +255,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
+	[EnterNotify] = enternotify,
+	[Expose] = expose,
+	[FocusIn] = focusin,
++        [KeyRelease] = keyrelease,
+	[KeyPress] = keypress,
+	[MappingNotify] = mappingnotify,
+	[MapRequest] = maprequest,
+@@ -275,6 +279,24 @@ static Window root, wmcheckwin;
+ struct NumTags { char limitexceeded[LENGTH(tags) &gt; 31 ? -1 : 1]; };
+
+ /* function implementations */
++
++void
++keyrelease(XEvent *e) {
++        if (e-&gt;xkey.keycode == XKeysymToKeycode(dpy, XK_Super_L)) {
++                selmon-&gt;showbar = 0;
++                updatebarpos(selmon);
++                XMoveResizeWindow(dpy, selmon-&gt;barwin, selmon-&gt;wx, selmon-&gt;by, selmon-&gt;ww, bh);
++                arrange(selmon);
++        }
++}
++
++void
++holdbar(const Arg *arg)
++{
++        selmon-&gt;showbar = 1;
++        updatebarpos(selmon);
++        XMoveResizeWindow(dpy, selmon-&gt;barwin, selmon-&gt;wx, selmon-&gt;by, selmon-&gt;ww, bh);
++}
+ void
+ applyrules(Client *c)
+ {
+@@ -1826,9 +1848,7 @@ updatebarpos(Monitor *m)
+	m-&gt;wy = m-&gt;my;
+	m-&gt;wh = m-&gt;mh;
+	if (m-&gt;showbar) {
+-		m-&gt;wh -= bh;
+		m-&gt;by = m-&gt;topbar ? m-&gt;wy : m-&gt;wy + m-&gt;wh;
+-		m-&gt;wy = m-&gt;topbar ? m-&gt;wy + bh : m-&gt;wy;
+	} else
+		m-&gt;by = -bh;
+ }
+-- 
+2.22.0
+</pre></div>
+</div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/first-blog-post/" class="u-url">First Blog Post</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hayden Szymanski
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/first-blog-post/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-27T18:01:53-04:00" itemprop="datePublished" title="2019-06-27 18:01">2019-06-27 18:01</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>
+Finally got my new blog set up. It uses nikola as a static site generator and an orgmode plugin to play nicely with emacs and convert .org files into html ones. 
+</p>
+
+<p>
+The code that makes posting a new blogpost relatively easy is this bit of lisp code i put in my config file
+</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">setq</span> <span class="nv">blog-repo</span> <span class="s">"~/repos/hsszyman.github.io/"</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">defun</span> <span class="nv">new-post</span> <span class="p">(</span><span class="nf">title</span><span class="p">)</span>
+  <span class="s">"New Blog Post"</span>
+  <span class="p">(</span><span class="nf">interactive</span> <span class="s">"sEnter post title: "</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">cd</span> <span class="nv">blog-repo</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">setq</span> <span class="nv">new-post-cmd</span> <span class="p">(</span><span class="nf">concat</span> <span class="s">"nikola new_post -f orgmode -t "</span> <span class="s">"\""</span> <span class="nv">title</span> <span class="s">"\""</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">shell-command</span> <span class="nv">new-post-cmd</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">setq</span> <span class="nv">new-post-file</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">blog-repo</span>
+			      <span class="s">"/posts/"</span>
+			      <span class="p">(</span><span class="nf">replace-regexp-in-string</span> <span class="s">" "</span> <span class="s">"-"</span> <span class="nv">title</span><span class="p">)</span>
+			      <span class="s">".org"</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">find-file</span> <span class="nv">new-post-file</span><span class="p">))</span>
+</pre></div>
+                </div>
+            </article>
+</div>
+    
+
+    
+
+    
+
+
+        <!--End of body content-->
+
+        <footer id="footer">
+            Contents © 2019         <a href="mailto:hsszyman@gmail.com">Hayden Szymanski</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

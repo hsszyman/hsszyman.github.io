@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about Programming)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/cat_programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Fri, 28 Jun 2019 05:17:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-org4042b68" class="outline-2"&gt;
+&lt;h2 id="org4042b68"&gt;DWM In a Nutshell&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4042b68"&gt;
+&lt;p&gt;
+Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+In a later blog post I'll go into more details on the unique aspects of dwm, but for today let's look at hacking it.&lt;br&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+
+&lt;div id="outline-container-org4eb2800" class="outline-2"&gt;
+&lt;h2 id="org4eb2800"&gt;Coming up with a problem to solve&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4eb2800"&gt;
+&lt;p&gt;
+One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+In short, we want the bar only to be seen when held, what I call a holdbar.&lt;br&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgb824097" class="outline-2"&gt;
+&lt;h2 id="orgb824097"&gt;Setting up the environment&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb824097"&gt;
+&lt;p&gt;
+Before you can get started with dwm you need to actually install it.&lt;br&gt;
+Because of suckless's &lt;a href="https://suckless.org/philosophy/"&gt;philosophy&lt;/a&gt; you will need to download download the source code.&lt;br&gt;
+For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Go ahead and download the dwm sourcecode by typing&lt;br&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git clone https://git.suckless.org/dwm
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+then let's cd into the new git directory and prepare our local repo for setting up patches.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; dwm
+git branch new_feature
+git checkout new_feature
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-orgebebf75" class="outline-2"&gt;
+&lt;h2 id="orgebebf75"&gt;Understanding The Structure&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgebebf75"&gt;
+&lt;p&gt;
+The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often&lt;br&gt;
+&lt;/p&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th scope="col" class="org-left"&gt;Filename&lt;/th&gt;
+&lt;th scope="col" class="org-left"&gt;Role&lt;/th&gt;
+&lt;th scope="col" class="org-left"&gt;notes&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-left"&gt;config.def.h&lt;/td&gt;
+&lt;td class="org-left"&gt;Used to apply patch code to config files,&lt;/td&gt;
+&lt;td class="org-left"&gt;Generates config.h upon compile&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-left"&gt;config.h&lt;/td&gt;
+&lt;td class="org-left"&gt;quick configuration meant to be edited frequently, updates dwm on make clean config&lt;/td&gt;
+&lt;td class="org-left"&gt;Used for making edits that will effect dwm upon recompile&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-left"&gt;dwm.c&lt;/td&gt;
+&lt;td class="org-left"&gt;More in depth configuration, being the main source code&lt;/td&gt;
+&lt;td class="org-left"&gt; &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+=&lt;br&gt;
+&lt;/p&gt;
+
+
+
+&lt;p&gt;
+Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h&lt;br&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgd604269" class="outline-2"&gt;
+&lt;h2 id="orgd604269"&gt;Writing your patch&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd604269"&gt;
+&lt;p&gt;
+Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add&lt;br&gt;
+Then, you'll want to write a &lt;b&gt;detailed&lt;/b&gt; comment for your commit&lt;br&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git commit -m &lt;span class="s2"&gt;"SUPER DETAILED AND AWESOME DESCRIPTION HERE"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+Suckless has certain &lt;a href="https://suckless.org/hacking/"&gt;guidelines&lt;/a&gt; to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#/usr/bin/sh&lt;/span&gt;
+git format-patch --stdout HEAD^ &amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;-&lt;span class="k"&gt;$(&lt;/span&gt;date +&lt;span class="s2"&gt;"%Y%m%d"&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;-&lt;span class="k"&gt;$(&lt;/span&gt;git rev-parse --short &lt;span class="k"&gt;$(&lt;/span&gt;git log &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;'NR==1{print $2}'&lt;/span&gt;&lt;span class="k"&gt;))&lt;/span&gt;.diff
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like&lt;br&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;./gen-patch dwm-holdbar
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+This will generate a properly named patch for you.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install!&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Just for those curious here is the holdbar patch that I wrote&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;From 6663a23fc0abce840bbbd31cec36434ee52a93b3 Mon Sep 17 00:00:00 2001
+From: hsszyman &amp;lt;hsszyman@gmail.com&amp;gt;
+Date: Wed, 26 Jun 2019 13:48:41 -0400
+Subject: [PATCH] holdbar
+
+---
+ config.def.h |  5 +++--
+ dwm.c        | 24 ++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 1c0b587..82c88d5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -3,7 +3,7 @@
+ /* appearance */
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+-static const int showbar            = 1;        /* 0 means no bar */
++static const int showbar            = 0;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+ static const char *fonts[]          = { "monospace:size=10" };
+ static const char dmenufont[]       = "monospace:size=10";
+@@ -44,7 +44,7 @@ static const Layout layouts[] = {
+ };
+
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+	{ MODKEY,                       KEY,      view,           {.ui = 1 &amp;lt;&amp;lt; TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 &amp;lt;&amp;lt; TAG} }, \
+@@ -94,6 +94,7 @@ static Key keys[] = {
+	TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++        { 0,                            XK_Super_L,holdbar,         {0} },
+ };
+
+ /* button definitions */
+diff --git a/dwm.c b/dwm.c
+index 4465af1..1933e2d 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -176,6 +176,7 @@ static void grabbuttons(Client *c, int focused);
+ static void grabkeys(void);
+ static void incnmaster(const Arg *arg);
+ static void keypress(XEvent *e);
++static void keyrelease(XEvent *e);
+ static void killclient(const Arg *arg);
+ static void manage(Window w, XWindowAttributes *wa);
+ static void mappingnotify(XEvent *e);
+@@ -210,6 +211,7 @@ static void tag(const Arg *arg);
+ static void tagmon(const Arg *arg);
+ static void tile(Monitor *);
+ static void togglebar(const Arg *arg);
++static void holdbar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+@@ -245,6 +247,7 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
+ static unsigned int numlockmask = 0;
+ static void (*handler[LASTEvent]) (XEvent *) = {
+	[ButtonPress] = buttonpress,
++        [ButtonRelease] = keyrelease,
+	[ClientMessage] = clientmessage,
+	[ConfigureRequest] = configurerequest,
+	[ConfigureNotify] = configurenotify,
+@@ -252,6 +255,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
+	[EnterNotify] = enternotify,
+	[Expose] = expose,
+	[FocusIn] = focusin,
++        [KeyRelease] = keyrelease,
+	[KeyPress] = keypress,
+	[MappingNotify] = mappingnotify,
+	[MapRequest] = maprequest,
+@@ -275,6 +279,24 @@ static Window root, wmcheckwin;
+ struct NumTags { char limitexceeded[LENGTH(tags) &amp;gt; 31 ? -1 : 1]; };
+
+ /* function implementations */
++
++void
++keyrelease(XEvent *e) {
++        if (e-&amp;gt;xkey.keycode == XKeysymToKeycode(dpy, XK_Super_L)) {
++                selmon-&amp;gt;showbar = 0;
++                updatebarpos(selmon);
++                XMoveResizeWindow(dpy, selmon-&amp;gt;barwin, selmon-&amp;gt;wx, selmon-&amp;gt;by, selmon-&amp;gt;ww, bh);
++                arrange(selmon);
++        }
++}
++
++void
++holdbar(const Arg *arg)
++{
++        selmon-&amp;gt;showbar = 1;
++        updatebarpos(selmon);
++        XMoveResizeWindow(dpy, selmon-&amp;gt;barwin, selmon-&amp;gt;wx, selmon-&amp;gt;by, selmon-&amp;gt;ww, bh);
++}
+ void
+ applyrules(Client *c)
+ {
+@@ -1826,9 +1848,7 @@ updatebarpos(Monitor *m)
+	m-&amp;gt;wy = m-&amp;gt;my;
+	m-&amp;gt;wh = m-&amp;gt;mh;
+	if (m-&amp;gt;showbar) {
+-		m-&amp;gt;wh -= bh;
+		m-&amp;gt;by = m-&amp;gt;topbar ? m-&amp;gt;wy : m-&amp;gt;wy + m-&amp;gt;wh;
+-		m-&amp;gt;wy = m-&amp;gt;topbar ? m-&amp;gt;wy + bh : m-&amp;gt;wy;
+	} else
+		m-&amp;gt;by = -bh;
+ }
+-- 
+2.22.0
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>C</category><category>dwm</category><category>linux</category><category>shell scripting</category><guid>https://hsszyman.github.io/posts/dwm/</guid><pubDate>Thu, 27 Jun 2019 22:14:25 GMT</pubDate></item><item><title>First Blog Post</title><link>https://hsszyman.github.io/posts/first-blog-post/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;p&gt;
+Finally got my new blog set up. It uses nikola as a static site generator and an orgmode plugin to play nicely with emacs and convert .org files into html ones. 
+&lt;/p&gt;
+
+&lt;p&gt;
+The code that makes posting a new blogpost relatively easy is this bit of lisp code i put in my config file
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;blog-repo&lt;/span&gt; &lt;span class="s"&gt;"~/repos/hsszyman.github.io/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;new-post&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;title&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="s"&gt;"New Blog Post"&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;interactive&lt;/span&gt; &lt;span class="s"&gt;"sEnter post title: "&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;cd&lt;/span&gt; &lt;span class="nv"&gt;blog-repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;new-post-cmd&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;concat&lt;/span&gt; &lt;span class="s"&gt;"nikola new_post -f orgmode -t "&lt;/span&gt; &lt;span class="s"&gt;"\""&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="s"&gt;"\""&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;shell-command&lt;/span&gt; &lt;span class="nv"&gt;new-post-cmd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;new-post-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;concat&lt;/span&gt; &lt;span class="nv"&gt;blog-repo&lt;/span&gt;
+			      &lt;span class="s"&gt;"/posts/"&lt;/span&gt;
+			      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;replace-regexp-in-string&lt;/span&gt; &lt;span class="s"&gt;" "&lt;/span&gt; &lt;span class="s"&gt;"-"&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+			      &lt;span class="s"&gt;".org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;find-file&lt;/span&gt; &lt;span class="nv"&gt;new-post-file&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><category>blog</category><category>emacs</category><category>meta</category><guid>https://hsszyman.github.io/posts/first-blog-post/</guid><pubDate>Thu, 27 Jun 2019 22:01:53 GMT</pubDate></item></channel></rss>
