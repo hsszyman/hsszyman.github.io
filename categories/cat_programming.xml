@@ -1,12 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about Programming)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/cat_programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Sat, 29 Jun 2019 03:34:28 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Simple Python Recursion Example</title><link>https://hsszyman.github.io/posts/python-stuff/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;fact&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-	&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;
-    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-	&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;fact&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about Programming)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/cat_programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Sat, 29 Jun 2019 23:04:23 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Modularizing Python</title><link>https://hsszyman.github.io/posts/modularizing-python/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;p&gt;
+Python is a fairly nift language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
+&lt;/p&gt;
 
-&lt;span class="n"&gt;fact&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>babel</category><category>blogging</category><category>emacs</category><category>meta</category><category>python</category><guid>https://hsszyman.github.io/posts/python-stuff/</guid><pubDate>Sat, 29 Jun 2019 03:20:30 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orge77728d" class="outline-2"&gt;
+&lt;div id="outline-container-orgb6cf480" class="outline-2"&gt;
+&lt;h2 id="orgb6cf480"&gt;Issue 1: Main Function not receiving declerations from later functions&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb6cf480"&gt;
+&lt;p&gt;
+The first Issue I ran into was order of execution issues when using a main function. I'm a lot more used to and comfortable with having a main function, and while this can be done with python, you'll need to add a bit of code so that the main function is away of declerations called after it in the same file.
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;__future__&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;print_function&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main_func&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"Hello World"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;"__main__"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;main_func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org492688e" class="outline-2"&gt;
+&lt;h2 id="org492688e"&gt;Issue 2 : Portable python code that can be executed&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org492688e"&gt;
+&lt;p&gt;
+Another Issue ( and slightly harder for me to fix ) was creating a single, runnable file that I can execute python code from, without having to worry about linkages to external files. Luckily, in python this is completely doable if you make use of pythons ability to run python code from within a zip file if you have a file within it called &lt;span class="underline"&gt;&lt;span class="underline"&gt;main&lt;/span&gt;&lt;/span&gt;.py. If I create a project structure and zip it, I can still execute everything ( barring imports are relative pathed ) from calling that zip file! This let's us have multi-file python projects that can potentially be executed in a manner similar to an executable, with all the dependencies included.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgd9807ee" class="outline-2"&gt;
+&lt;h2 id="orgd9807ee"&gt;A comprehensive solution to our problems&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd9807ee"&gt;
+&lt;p&gt;
+I took the liberty of writing up a fairly complete bash script that automates this entire process for you. It takes in a argument representing the project name. In addition it does several other things:
+&lt;/p&gt;
+
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;Generates a main file with a similar python template to the one I showed earlier.&lt;/li&gt;
+&lt;li&gt;Bundles all the python files in your current directory into a new zip file&lt;/li&gt;
+&lt;li&gt;Renames whatever the main file is in your program to &lt;span class="underline"&gt;&lt;span class="underline"&gt;main&lt;/span&gt;&lt;/span&gt;.py&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$#&lt;/span&gt; -eq &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; 
+&lt;span class="k"&gt;then&lt;/span&gt;
+	&lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+	&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$#&lt;/span&gt; -eq &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$2&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;"init"&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"from __future__ import print_function"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"def main_func():"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
+    &lt;span class="nb"&gt;echo&lt;/span&gt;    &lt;span class="s2"&gt;"    print(\"stub\")"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"if __name__ == \"__main__\":"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"    main_func()"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="nv"&gt;main_file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;.py"&lt;/span&gt;
+
+
+mkdir &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+cp -r &lt;span class="nv"&gt;$main_file&lt;/span&gt; ./&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;/__main__.py &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null
+cp -r &lt;span class="k"&gt;$(&lt;/span&gt;ls *.py &lt;span class="p"&gt;|&lt;/span&gt; grep -v &lt;span class="nv"&gt;$main_file&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt; ./&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;/ &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null
+&lt;span class="nb"&gt;cd&lt;/span&gt; ./&lt;span class="nv"&gt;$name&lt;/span&gt;
+zip ../&lt;span class="nv"&gt;$name&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ls *.py&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;cd&lt;/span&gt; ..
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -d &lt;span class="s2"&gt;"output"&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="k"&gt;then&lt;/span&gt;
+	mkdir output
+&lt;span class="k"&gt;fi&lt;/span&gt;
+
+mv &lt;span class="nv"&gt;$name&lt;/span&gt;.zip ./output
+chmod &lt;span class="m"&gt;777&lt;/span&gt; ./output/&lt;span class="nv"&gt;$name&lt;/span&gt;.zip
+rm -r &lt;span class="nv"&gt;$name&lt;/span&gt;
+mv ./output/&lt;span class="nv"&gt;$name&lt;/span&gt;.zip ./output/&lt;span class="nv"&gt;$name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>bash</category><category>linux</category><category>python</category><guid>https://hsszyman.github.io/posts/modularizing-python/</guid><pubDate>Sat, 29 Jun 2019 22:42:12 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orge77728d" class="outline-2"&gt;
 &lt;h2 id="orge77728d"&gt;DWM In a Nutshell&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-orge77728d"&gt;
 &lt;p&gt;
@@ -269,23 +349,4 @@ index 4465af1..1933e2d 100644
 2.22.0
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><category>C</category><category>dwm</category><category>linux</category><category>shell scripting</category><guid>https://hsszyman.github.io/posts/dwm/</guid><pubDate>Thu, 27 Jun 2019 22:14:25 GMT</pubDate></item><item><title>First Blog Post</title><link>https://hsszyman.github.io/posts/first-blog-post/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;p&gt;
-Finally got my new blog set up. It uses nikola as a static site generator and an orgmode plugin to play nicely with emacs and convert .org files into html ones. 
-&lt;/p&gt;
-
-&lt;p&gt;
-The code that makes posting a new blogpost relatively easy is this bit of lisp code i put in my config file
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;blog-repo&lt;/span&gt; &lt;span class="s"&gt;"~/repos/hsszyman.github.io/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;new-post&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;title&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="s"&gt;"New Blog Post"&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;interactive&lt;/span&gt; &lt;span class="s"&gt;"sEnter post title: "&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;cd&lt;/span&gt; &lt;span class="nv"&gt;blog-repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;new-post-cmd&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;concat&lt;/span&gt; &lt;span class="s"&gt;"nikola new_post -f orgmode -t "&lt;/span&gt; &lt;span class="s"&gt;"\""&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="s"&gt;"\""&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;shell-command&lt;/span&gt; &lt;span class="nv"&gt;new-post-cmd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;new-post-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;concat&lt;/span&gt; &lt;span class="nv"&gt;blog-repo&lt;/span&gt;
-			      &lt;span class="s"&gt;"/posts/"&lt;/span&gt;
-			      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;replace-regexp-in-string&lt;/span&gt; &lt;span class="s"&gt;" "&lt;/span&gt; &lt;span class="s"&gt;"-"&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-			      &lt;span class="s"&gt;".org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;find-file&lt;/span&gt; &lt;span class="nv"&gt;new-post-file&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>blog</category><category>emacs</category><category>meta</category><guid>https://hsszyman.github.io/posts/first-blog-post/</guid><pubDate>Thu, 27 Jun 2019 22:01:53 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;</description><category>C</category><category>dwm</category><category>linux</category><category>shell scripting</category><guid>https://hsszyman.github.io/posts/dwm/</guid><pubDate>Thu, 27 Jun 2019 22:14:25 GMT</pubDate></item></channel></rss>

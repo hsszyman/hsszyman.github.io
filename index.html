@@ -11,7 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://hsszyman.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/python-stuff/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/modularizing-python/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -67,25 +67,104 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/python-stuff/" class="u-url">Simple Python Recursion Example</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/modularizing-python/" class="u-url">Modularizing Python</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hayden Szymanski
                     </span></p>
             <p class="dateline">
-            <a href="posts/python-stuff/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-06-28T23:20:30-04:00" itemprop="datePublished" title="2019-06-28 23:20">2019-06-28 23:20</time></a>
+            <a href="posts/modularizing-python/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-29T18:42:12-04:00" itemprop="datePublished" title="2019-06-29 18:42">2019-06-29 18:42</time></a>
             </p>
                 </div>
             </header><div class="e-content entry-content">
-                    <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-	<span class="k">return</span> <span class="n">num</span>
-    <span class="k">else</span><span class="p">:</span>
-	<span class="k">return</span> <span class="n">num</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+                    <p>
+Python is a fairly nift language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
+</p>
 
-<span class="n">fact</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div id="outline-container-orgb6cf480" class="outline-2">
+<h2 id="orgb6cf480">Issue 1: Main Function not receiving declerations from later functions</h2>
+<div class="outline-text-2" id="text-orgb6cf480">
+<p>
+The first Issue I ran into was order of execution issues when using a main function. I'm a lot more used to and comfortable with having a main function, and while this can be done with python, you'll need to add a bit of code so that the main function is away of declerations called after it in the same file.
+</p>
+
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">def</span> <span class="nf">main_func</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Hello World"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main_func</span><span class="p">()</span>
 </pre></div>
+
+<p>
+This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org492688e" class="outline-2">
+<h2 id="org492688e">Issue 2 : Portable python code that can be executed</h2>
+<div class="outline-text-2" id="text-org492688e">
+<p>
+Another Issue ( and slightly harder for me to fix ) was creating a single, runnable file that I can execute python code from, without having to worry about linkages to external files. Luckily, in python this is completely doable if you make use of pythons ability to run python code from within a zip file if you have a file within it called <span class="underline"><span class="underline">main</span></span>.py. If I create a project structure and zip it, I can still execute everything ( barring imports are relative pathed ) from calling that zip file! This let's us have multi-file python projects that can potentially be executed in a manner similar to an executable, with all the dependencies included.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd9807ee" class="outline-2">
+<h2 id="orgd9807ee">A comprehensive solution to our problems</h2>
+<div class="outline-text-2" id="text-orgd9807ee">
+<p>
+I took the liberty of writing up a fairly complete bash script that automates this entire process for you. It takes in a argument representing the project name. In addition it does several other things:
+</p>
+
+<ol class="org-ol">
+<li>Generates a main file with a similar python template to the one I showed earlier.</li>
+<li>Bundles all the python files in your current directory into a new zip file</li>
+<li>Renames whatever the main file is in your program to <span class="underline"><span class="underline">main</span></span>.py</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span> 
+<span class="k">then</span>
+	<span class="nb">exit</span> <span class="m">1</span>
+<span class="k">else</span>
+	<span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">2</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"init"</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">"from __future__ import print_function"</span> &gt;&gt; <span class="nv">$1</span>.py
+    <span class="nb">echo</span> &gt;&gt; <span class="nv">$1</span>.py
+    <span class="nb">echo</span> <span class="s2">"def main_func():"</span> &gt;&gt; <span class="nv">$1</span>.py
+    <span class="nb">echo</span>    <span class="s2">"    print(\"stub\")"</span> &gt;&gt; <span class="nv">$1</span>.py
+    <span class="nb">echo</span> &gt;&gt; <span class="nv">$1</span>.py
+    <span class="nb">echo</span> <span class="s2">"if __name__ == \"__main__\":"</span> &gt;&gt; <span class="nv">$1</span>.py
+    <span class="nb">echo</span> <span class="s2">"    main_func()"</span> &gt;&gt; <span class="nv">$1</span>.py
+<span class="k">fi</span>
+<span class="nv">main_file</span><span class="o">=</span><span class="s2">"</span><span class="nv">$name</span><span class="s2">.py"</span>
+
+
+mkdir <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+cp -r <span class="nv">$main_file</span> ./<span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>/__main__.py <span class="m">2</span>&gt; /dev/null
+cp -r <span class="k">$(</span>ls *.py <span class="p">|</span> grep -v <span class="nv">$main_file</span><span class="k">)</span> ./<span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>/ <span class="m">2</span>&gt; /dev/null
+<span class="nb">cd</span> ./<span class="nv">$name</span>
+zip ../<span class="nv">$name</span> <span class="k">$(</span>ls *.py<span class="k">)</span>
+<span class="nb">cd</span> ..
+
+<span class="k">if</span> <span class="o">[</span> ! -d <span class="s2">"output"</span> <span class="o">]</span>
+<span class="k">then</span>
+	mkdir output
+<span class="k">fi</span>
+
+mv <span class="nv">$name</span>.zip ./output
+chmod <span class="m">777</span> ./output/<span class="nv">$name</span>.zip
+rm -r <span class="nv">$name</span>
+mv ./output/<span class="nv">$name</span>.zip ./output/<span class="nv">$name</span>
+</pre></div>
+</div>
+</div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/dwm/" class="u-url">Hacking DWM : Holdbar</a></h1>
                 <div class="metadata">
@@ -337,38 +416,6 @@ index 4465af1..1933e2d 100644
 </pre></div>
 </div>
 </div>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/first-blog-post/" class="u-url">First Blog Post</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Hayden Szymanski
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/first-blog-post/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-06-27T18:01:53-04:00" itemprop="datePublished" title="2019-06-27 18:01">2019-06-27 18:01</time></a>
-            </p>
-                </div>
-            </header><div class="e-content entry-content">
-                    <p>
-Finally got my new blog set up. It uses nikola as a static site generator and an orgmode plugin to play nicely with emacs and convert .org files into html ones. 
-</p>
-
-<p>
-The code that makes posting a new blogpost relatively easy is this bit of lisp code i put in my config file
-</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">setq</span> <span class="nv">blog-repo</span> <span class="s">"~/repos/hsszyman.github.io/"</span><span class="p">)</span>
-<span class="p">(</span><span class="nf">defun</span> <span class="nv">new-post</span> <span class="p">(</span><span class="nf">title</span><span class="p">)</span>
-  <span class="s">"New Blog Post"</span>
-  <span class="p">(</span><span class="nf">interactive</span> <span class="s">"sEnter post title: "</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">cd</span> <span class="nv">blog-repo</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">setq</span> <span class="nv">new-post-cmd</span> <span class="p">(</span><span class="nf">concat</span> <span class="s">"nikola new_post -f orgmode -t "</span> <span class="s">"\""</span> <span class="nv">title</span> <span class="s">"\""</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">shell-command</span> <span class="nv">new-post-cmd</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">setq</span> <span class="nv">new-post-file</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">blog-repo</span>
-			      <span class="s">"/posts/"</span>
-			      <span class="p">(</span><span class="nf">replace-regexp-in-string</span> <span class="s">" "</span> <span class="s">"-"</span> <span class="nv">title</span><span class="p">)</span>
-			      <span class="s">".org"</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">find-file</span> <span class="nv">new-post-file</span><span class="p">))</span>
-</pre></div>
                 </div>
             </article>
 </div>

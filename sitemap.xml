@@ -15,15 +15,19 @@
  </url>
  <url>
   <loc>https://hsszyman.github.io/archive.html</loc>
-  <lastmod>2019-06-29T03:34:00Z</lastmod>
+  <lastmod>2019-06-29T23:03:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/categories/</loc>
-  <lastmod>2019-06-29T03:34:00Z</lastmod>
+  <lastmod>2019-06-29T23:03:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/categories/babel/</loc>
   <lastmod>2019-06-29T03:34:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://hsszyman.github.io/categories/bash/</loc>
+  <lastmod>2019-06-29T23:03:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/categories/blog/</loc>
@@ -72,6 +76,10 @@
  <url>
   <loc>https://hsszyman.github.io/posts/first-blog-post/</loc>
   <lastmod>2019-06-28T06:58:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://hsszyman.github.io/posts/modularizing-python/</loc>
+  <lastmod>2019-06-29T23:03:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/posts/python-stuff/</loc>

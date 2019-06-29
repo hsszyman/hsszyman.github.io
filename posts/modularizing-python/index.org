@@ -1,0 +1,80 @@
+#+BEGIN_COMMENT
+.. title: Modularizing Python
+.. slug: modularizing-python
+.. date: 2019-06-29 18:42:12 UTC-04:00
+.. tags: python, bash, linux
+.. category: Programming
+.. link: 
+.. description: Making python more OOP Friendly
+.. type: text
+
+#+END_COMMENT
+
+Python is a fairly nift language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
+
+* Issue 1: Main Function not receiving declerations from later functions
+
+The first Issue I ran into was order of execution issues when using a main function. I'm a lot more used to and comfortable with having a main function, and while this can be done with python, you'll need to add a bit of code so that the main function is away of declerations called after it in the same file.
+
+#+BEGIN_SRC python 
+  from __future__ import print_function
+
+  def main_func():
+      print("Hello World")
+
+  if __name == "__main__":
+      main_func()
+#+END_SRC
+
+This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
+
+* Issue 2 : Portable python code that can be executed
+
+Another Issue ( and slightly harder for me to fix ) was creating a single, runnable file that I can execute python code from, without having to worry about linkages to external files. Luckily, in python this is completely doable if you make use of pythons ability to run python code from within a zip file if you have a file within it called __main__.py. If I create a project structure and zip it, I can still execute everything ( barring imports are relative pathed ) from calling that zip file! This let's us have multi-file python projects that can potentially be executed in a manner similar to an executable, with all the dependencies included.
+
+* A comprehensive solution to our problems
+I took the liberty of writing up a fairly complete bash script that automates this entire process for you. It takes in a argument representing the project name. In addition it does several other things:
+
+1. Generates a main file with a similar python template to the one I showed earlier.
+2. Bundles all the python files in your current directory into a new zip file
+3. Renames whatever the main file is in your program to __main__.py
+   
+#+BEGIN_SRC sh
+  #!/bin/bash
+
+  if [ $# -eq 0 ] 
+  then
+          exit 1
+  else
+          name=$1
+  fi
+  if [ $# -eq 2 ] && [ "$2" == "init" ]
+  then
+      echo "from __future__ import print_function" >> $1.py
+      echo >> $1.py
+      echo "def main_func():" >> $1.py
+      echo    "    print(\"stub\")" >> $1.py
+      echo >> $1.py
+      echo "if __name__ == \"__main__\":" >> $1.py
+      echo "    main_func()" >> $1.py
+  fi
+  main_file="$name.py"
+
+
+  mkdir "$name"
+  cp -r $main_file ./"$name"/__main__.py 2> /dev/null
+  cp -r $(ls *.py | grep -v $main_file) ./"$name"/ 2> /dev/null
+  cd ./$name
+  zip ../$name $(ls *.py)
+  cd ..
+
+  if [ ! -d "output" ]
+  then
+          mkdir output
+  fi
+
+  mv $name.zip ./output
+  chmod 777 ./output/$name.zip
+  rm -r $name
+  mv ./output/$name.zip ./output/$name
+#+END_SRC
