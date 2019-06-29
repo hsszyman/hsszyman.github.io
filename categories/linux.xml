@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Sat, 29 Jun 2019 03:01:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-org7f7256b" class="outline-2"&gt;
-&lt;h2 id="org7f7256b"&gt;DWM In a Nutshell&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org7f7256b"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Sat, 29 Jun 2019 03:03:15 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orge77728d" class="outline-2"&gt;
+&lt;h2 id="orge77728d"&gt;DWM In a Nutshell&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orge77728d"&gt;
 &lt;p&gt;
 Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.&lt;br&gt;
 &lt;/p&gt;
@@ -14,9 +14,9 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 
 
 
-&lt;div id="outline-container-org57e999d" class="outline-2"&gt;
-&lt;h2 id="org57e999d"&gt;Coming up with a problem to solve&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org57e999d"&gt;
+&lt;div id="outline-container-orgb0eb08a" class="outline-2"&gt;
+&lt;h2 id="orgb0eb08a"&gt;Coming up with a problem to solve&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb0eb08a"&gt;
 &lt;p&gt;
 One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.&lt;br&gt;
 &lt;/p&gt;
@@ -27,9 +27,9 @@ In short, we want the bar only to be seen when held, what I call a holdbar.&lt;b
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-org8f230f5" class="outline-2"&gt;
-&lt;h2 id="org8f230f5"&gt;Setting up the environment&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8f230f5"&gt;
+&lt;div id="outline-container-orgd53f3f2" class="outline-2"&gt;
+&lt;h2 id="orgd53f3f2"&gt;Setting up the environment&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd53f3f2"&gt;
 &lt;p&gt;
 Before you can get started with dwm you need to actually install it.&lt;br&gt;
 Because of suckless's &lt;a href="https://suckless.org/philosophy/"&gt;philosophy&lt;/a&gt; you will need to download download the source code.&lt;br&gt;
@@ -54,9 +54,9 @@ git checkout new_feature
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-orge29a557" class="outline-2"&gt;
-&lt;h2 id="orge29a557"&gt;Understanding The Structure&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge29a557"&gt;
+&lt;div id="outline-container-orge39091f" class="outline-2"&gt;
+&lt;h2 id="orge39091f"&gt;Understanding The Structure&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orge39091f"&gt;
 &lt;p&gt;
 The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often&lt;br&gt;
 &lt;/p&gt;
@@ -113,11 +113,11 @@ For patches this often won't cut it, and sometimes you'll have to jump into dwm.
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-orgc2ef035" class="outline-2"&gt;
-&lt;h2 id="orgc2ef035"&gt;Writing your patch&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc2ef035"&gt;
+&lt;div id="outline-container-orgeb85917" class="outline-2"&gt;
+&lt;h2 id="orgeb85917"&gt;Writing your patch&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgeb85917"&gt;
 &lt;p&gt;
-Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add. Then, you'll want to write a &lt;b&gt;detailed&lt;/b&gt; comment for your commit&lt;br&gt;
+Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add. After that you'll want to write a &lt;b&gt;detailed&lt;/b&gt; comment for your commit&lt;br&gt;
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git commit -m &lt;span class="s2"&gt;"SUPER DETAILED AND AWESOME DESCRIPTION HERE"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
