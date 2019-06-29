@@ -6,8 +6,16 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://hsszyman.github.io/categories/babel.xml</loc>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://hsszyman.github.io/categories/blog.xml</loc>
   <lastmod>2019-06-28T06:58:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/blogging.xml</loc>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/c.xml</loc>
@@ -15,7 +23,7 @@
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/cat_programming.xml</loc>
-  <lastmod>2019-06-29T03:03:00Z</lastmod>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/dwm.xml</loc>
@@ -23,7 +31,7 @@
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/emacs.xml</loc>
-  <lastmod>2019-06-28T06:58:00Z</lastmod>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/linux.xml</loc>
@@ -31,7 +39,11 @@
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/meta.xml</loc>
-  <lastmod>2019-06-28T06:58:00Z</lastmod>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/python.xml</loc>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/shell-scripting.xml</loc>
@@ -39,10 +51,10 @@
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/rss.xml</loc>
-  <lastmod>2019-06-29T03:03:00Z</lastmod>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/sitemap.xml</loc>
-  <lastmod>2019-06-29T03:03:00Z</lastmod>
+  <lastmod>2019-06-29T03:34:00Z</lastmod>
  </sitemap>
 </sitemapindex>
