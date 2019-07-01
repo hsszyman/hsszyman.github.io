@@ -59,7 +59,7 @@ then let's cd into the new git directory and prepare our local repo for setting 
 
 Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.
 
-For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declarations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h
 
 * Writing your patch
 Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add. After that you'll want to write a *detailed* comment for your commit
