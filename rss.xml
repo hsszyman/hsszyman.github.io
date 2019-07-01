@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog</title><link>https://hsszyman.github.io/</link><description>Blog For Tinkering</description><atom:link href="https://hsszyman.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 20:30:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orge1ddc55" class="outline-2"&gt;
-&lt;h2 id="orge1ddc55"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge1ddc55"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog</title><link>https://hsszyman.github.io/</link><description>Blog For Tinkering</description><atom:link href="https://hsszyman.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 20:46:57 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orgebedcbb" class="outline-2"&gt;
+&lt;h2 id="orgebedcbb"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgebedcbb"&gt;
 &lt;p&gt;
 Dmenu is a fairly simple utility to use and understand. In essence it is a command-line utility that takes in a number of piped arguments and displays a simple menu of those arguments, with the selected argument being outputted back to stdout. It's a straight-forward concept but depending on how you use it you can make some very nifty tools.
 &lt;/p&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-orgda0e6d2" class="outline-3"&gt;
-&lt;h3 id="orgda0e6d2"&gt;Pre-requisites:&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgda0e6d2"&gt;
+&lt;div id="outline-container-orgf1a60d1" class="outline-3"&gt;
+&lt;h3 id="orgf1a60d1"&gt;Pre-requisites:&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgf1a60d1"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;A cloned or downloaded sourcecode of dmenu&lt;/li&gt;
 &lt;li&gt;Gnu C compiler to compile dwm&lt;/li&gt;
@@ -17,7 +17,7 @@ Dmenu is a fairly simple utility to use and understand. In essence it is a comma
 &lt;li&gt;Youtube-viewer | consult your linux distribution&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/"&gt;Read more…&lt;/a&gt; (1 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>dmenu</category><category>linux</category><category>shell scripting</category><category>tcl</category><guid>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</guid><pubDate>Mon, 01 Jul 2019 00:35:09 GMT</pubDate></item><item><title>Modularizing Python</title><link>https://hsszyman.github.io/posts/modularizing-python/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;p&gt;
+&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>dmenu</category><category>linux</category><category>shell scripting</category><category>tcl</category><guid>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</guid><pubDate>Mon, 01 Jul 2019 00:35:09 GMT</pubDate></item><item><title>Modularizing Python</title><link>https://hsszyman.github.io/posts/modularizing-python/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;p&gt;
 Python is a fairly nifty language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
 &lt;/p&gt;
 

@@ -59,6 +59,7 @@ fetch
 #+END_SRC
 
 ** Watching Youtube with the help of Dmenu!
+[[img-url:/images/YT.gif]]
 
 * BONUS : File Exploration with Dmenu!
 
