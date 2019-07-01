@@ -83,4 +83,4 @@ This will generate a properly named patch for you.
 After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install! 
 
 * Bonus : Holbar
-As an example of what you can do to hack dwm I've included the wiki entry to holbar [[https://dwm.suckless.org/patches/holdbar/][here]].
+As an example of what you can do to hack dwm I've included the wiki entry to holdbar [[https://dwm.suckless.org/patches/holdbar/][here]].
