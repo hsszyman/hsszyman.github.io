@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html prefix="        og: http://ogp.me/ns# article: http://ogp.me/ns/article#     " vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Holdbar">
+<meta name="viewport" content="width=device-width">
+<title>Hacking DWM : Holdbar | Hayden's Tinkering Blog</title>
+<link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="https://hsszyman.github.io/posts/dwm-holdbar/">
+<!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Hayden Szymanski">
+<link rel="next" href="../modularizing-python/" title="Modularizing Python" type="text/html">
+<meta property="og:site_name" content="Hayden's Tinkering Blog">
+<meta property="og:title" content="Hacking DWM : Holdbar">
+<meta property="og:url" content="https://hsszyman.github.io/posts/dwm-holdbar/">
+<meta property="og:description" content="Holdbar">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-06-27T18:14:25-04:00">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="dwm">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="shell scripting">
+</head>
+<body>
+    <a href="#page-content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+    <section class="social"><ul>
+<li><a href="../../index.html" title="Home"><i class="fa fa-home"></i></a></li>
+            <li><a href="../../archive.html" title="Archives"><i class="fa fa-folder-open"></i></a></li>
+            <li><a href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i></a></li>
+            <li><a href="../../rss.xml" title="RSS"><i class="fa fa-rss"></i></a></li>
+            <li><a href="https://twitter.com/salivala" title="My Twitter"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="https://github.com/hsszyman" title="My Github"><i class="fab fa-github"></i></a></li>
+    
+    
+
+        </ul></section><section class="page-content"><div class="content" rel="main">
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Hacking DWM : Holdbar</a></h1>
+
+        <div class="metadata">
+            <p class="dateline"><a href="." rel="bookmark"><i class="fa fa-clock"></i> <time class="published dt-published" datetime="2019-06-27T18:14:25-04:00" itemprop="datePublished" title="2019-06-27 18:14">2019-06-27 18:14</time></a></p>
+            <p class="byline author vcard"> <i class="fa fa-user"></i> <span class="byline-name fn" itemprop="author">
+                    Hayden Szymanski
+            </span></p>
+            
+        <p class="sourceline"><a href="index.org" class="sourcelink"><i class="fa fa-file-code"></i> Source</a></p>
+
+                    <p class="linkline"><a href="https://dwm.suckless.org/patches/holdbar/"><i class="fa fa-link"></i> Original site</a></p>
+            
+
+            
+    <div class="tags">
+<h3 class="metadata-title">
+<i class="fa fa-tags"></i> Tags:</h3>
+        <ul itemprop="keywords" class="tags-ul">
+<li><a class="tag p-category" href="../../categories/c/" rel="tag">C</a></li>
+            <li><a class="tag p-category" href="../../categories/dwm/" rel="tag">dwm</a></li>
+            <li><a class="tag p-category" href="../../categories/linux/" rel="tag">linux</a></li>
+            <li><a class="tag p-category" href="../../categories/shell-scripting/" rel="tag">shell scripting</a></li>
+        </ul>
+</div>
+
+        </div>
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div id="outline-container-orgc65682c" class="outline-2">
+<h2 id="orgc65682c">DWM In a Nutshell</h2>
+<div class="outline-text-2" id="text-orgc65682c">
+<p>
+Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.<br></p>
+
+<p>
+In a later blog post I'll go into more details on the unique aspects of dwm, but for today let's look at hacking it.<br></p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org8d3dd1b" class="outline-2">
+<h2 id="org8d3dd1b">Coming up with a problem to solve</h2>
+<div class="outline-text-2" id="text-org8d3dd1b">
+<p>
+One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.<br></p>
+
+<p>
+In short, we want the bar only to be seen when held, what I call a holdbar.<br></p>
+
+<!-- TEASER_END -->
+</div>
+</div>
+
+<div id="outline-container-org02eeaa5" class="outline-2">
+<h2 id="org02eeaa5">Setting up the environment</h2>
+<div class="outline-text-2" id="text-org02eeaa5">
+<p>
+Before you can get started with dwm you need to actually install it.<br>
+Because of suckless's <a href="https://suckless.org/philosophy/">philosophy</a> you will need to download download the source code.<br>
+For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.<br></p>
+
+<p>
+Go ahead and download the dwm sourcecode by typing<br></p>
+<div class="highlight"><pre><span></span>git clone https://git.suckless.org/dwm
+</pre></div>
+
+<p>
+then let's cd into the new git directory and prepare our local repo for setting up patches.<br></p>
+
+<div class="highlight"><pre><span></span><span class="nb">cd</span> dwm
+git branch new_feature
+git checkout new_feature
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd8a748c" class="outline-2">
+<h2 id="orgd8a748c">Understanding The Structure</h2>
+<div class="outline-text-2" id="text-orgd8a748c">
+<p>
+The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often<br></p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead><tr>
+<th scope="col" class="org-left">Filename</th>
+<th scope="col" class="org-left">Role</th>
+<th scope="col" class="org-left">notes</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="org-left">config.def.h</td>
+<td class="org-left">Used to apply patch code to config files,</td>
+<td class="org-left">Generates config.h upon compile</td>
+</tr>
+<tr>
+<td class="org-left">config.h</td>
+<td class="org-left">quick configuration meant to be edited frequently, updates dwm on make clean config</td>
+<td class="org-left">Used for making edits that will effect dwm upon recompile</td>
+</tr>
+<tr>
+<td class="org-left">dwm.c</td>
+<td class="org-left">More in depth configuration, being the main source code</td>
+<td class="org-left"> </td>
+</tr>
+</tbody>
+</table>
+<p>
+=<br></p>
+
+
+
+<p>
+Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.<br></p>
+
+<p>
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declarations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h<br></p>
+</div>
+</div>
+
+<div id="outline-container-orgf32da41" class="outline-2">
+<h2 id="orgf32da41">Writing your patch</h2>
+<div class="outline-text-2" id="text-orgf32da41">
+<p>
+Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add. After that you'll want to write a <b>detailed</b> comment for your commit<br></p>
+<div class="highlight"><pre><span></span>git commit -m <span class="s2">"SUPER DETAILED AND AWESOME DESCRIPTION HERE"</span>
+</pre></div>
+
+<p>
+Suckless has certain <a href="https://suckless.org/hacking/">guidelines</a> to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you<br></p>
+
+<div class="highlight"><pre><span></span><span class="c1">#/usr/bin/sh</span>
+git format-patch --stdout HEAD^ &gt; <span class="nv">$1</span>-<span class="k">$(</span>date +<span class="s2">"%Y%m%d"</span><span class="k">)</span>-<span class="k">$(</span>git rev-parse --short <span class="k">$(</span>git log <span class="p">|</span> awk <span class="s1">'NR==1{print $2}'</span><span class="k">))</span>.diff
+</pre></div>
+
+<p>
+Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like<br></p>
+<div class="highlight"><pre><span></span>./gen-patch dwm-holdbar
+</pre></div>
+<p>
+This will generate a properly named patch for you.<br></p>
+
+<p>
+After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install!<br></p>
+</div>
+</div>
+
+<div id="outline-container-org7469555" class="outline-2">
+<h2 id="org7469555">Bonus : Holdbar</h2>
+<div class="outline-text-2" id="text-org7469555">
+<p>
+As an example of what you can do to hack dwm I've included the wiki entry to holdbar <a href="https://dwm.suckless.org/patches/holdbar/">here</a>.<br></p>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="next">
+                <a href="../modularizing-python/" rel="next" title="Modularizing Python">Next post</a>
+            </li>
+        </ul></nav></aside></article><footer id="footer"><p>Contents © 2019         <a href="mailto:hsszyman@gmail.com">Hayden Szymanski</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </section><script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(2, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

@@ -25,7 +25,7 @@ SITE_URL = "https://hsszyman.github.io/"
 # If not set, defaults to SITE_URL
 # BASE_URL = "https://hsszyman.github.io/"
 BLOG_EMAIL = "hsszyman@gmail.com"
-BLOG_DESCRIPTION = "T"  # (translatable)
+BLOG_DESCRIPTION = "Blog For Tinkering"  # (translatable)
 
 # Nikola is multilingual!
 #
@@ -136,13 +136,28 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 #          with a ``/``, otherwise end them with ``/index.html`` — or
 #          else they won’t be highlighted when active.
 
+#NAVIGATION_LINKS = {
+#    DEFAULT_LANG: (
+#        ("/archive.html", "Archive"),
+#        ("/categories/", "Tags"),
+#        ("/rss.xml", "RSS feed"),
+#    ),
+#}
+
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ("/archive.html", "Archive"),
-        ("/categories/", "Tags"),
-        ("/rss.xml", "RSS feed"),
-    ),
+        ('/index.html', 'Home', 'fa fa-home'),
+        ('/archive.html', 'Archives', 'fa fa-folder-open'),
+        ('/categories/index.html', 'Tags', 'fa fa-tags'),
+        ('/rss.xml', 'RSS', 'fa fa-rss'),
+        #('https://getnikola.com', 'About me', 'fa fa-user'),
+        ('https://twitter.com/salivala', 'My Twitter', 'fab fa-twitter'),
+        ('https://github.com/hsszyman', 'My Github', 'fab fa-github'),
+    )
 }
+
+DATE_FANCINESS = 2
+
 
 # Alternative navigation links. Works the same way NAVIGATION_LINKS does,
 # although themes may not always support them. (translatable)
@@ -152,7 +167,8 @@ NAVIGATION_ALT_LINKS = {
 }
 
 # Name of the theme to use.
-THEME = "bootblog4"
+#THEME = "bootblog4"
+THEME = "zen"
 
 # Primary color of your theme. This will be used to customize your theme.
 # Must be a HEX value.
@@ -227,7 +243,7 @@ PAGES = (
     ("pages/*.md", "pages", "page.tmpl"),
     ("pages/*.txt", "pages", "page.tmpl"),
     ("pages/*.html", "pages", "page.tmpl"),
-    ("pages/*.org", "pages", "page.tmpl"),
+    ("stories/*.org", "stories", "story.tmpl"),
 )
 
 
@@ -297,10 +313,10 @@ COMPILERS = {
     "wiki": ('.wiki',),
     "ipynb": ('.ipynb',),
     "html": ('.html', '.htm'),
-    "orgmode": ('.org',),
     # PHP files are rendered the usual way (i.e. with the full templates).
     # The resulting files have .php extensions, making it possible to run
     # them without reconfiguring your server to recognize them.
+    "orgmode": ('.org',),
     "php": ('.php',),
     # Pandoc detects the input from the source filename
     # but is disabled by default as it would conflict
@@ -885,7 +901,7 @@ IMAGE_FOLDERS = {'images': 'images'}
 # )
 
 # Show teasers (instead of full posts) in indexes? Defaults to False.
-# INDEX_TEASERS = False
+INDEX_TEASERS = True
 
 # HTML fragments with the Read more... links.
 # The following tags exist and are replaced for you:

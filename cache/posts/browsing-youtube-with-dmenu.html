@@ -1,0 +1,109 @@
+<div id="outline-container-orge1ddc55" class="outline-2">
+<h2 id="orge1ddc55">Dmenu + youtube-viewer</h2>
+<div class="outline-text-2" id="text-orge1ddc55">
+<p>
+Dmenu is a fairly simple utility to use and understand. In essence it is a command-line utility that takes in a number of piped arguments and displays a simple menu of those arguments, with the selected argument being outputted back to stdout. It's a straight-forward concept but depending on how you use it you can make some very nifty tools.
+</p>
+</div>
+
+<div id="outline-container-orgda0e6d2" class="outline-3">
+<h3 id="orgda0e6d2">Pre-requisites:</h3>
+<div class="outline-text-3" id="text-orgda0e6d2">
+<ol class="org-ol">
+<li>A cloned or downloaded sourcecode of dmenu</li>
+<li>Gnu C compiler to compile dwm</li>
+<li>Expect ( tcl library ) | consult your linux distribution</li>
+<li>Youtube-viewer | consult your linux distribution</li>
+</ol>
+
+<!-- TEASER_END -->
+</div>
+</div>
+
+<div id="outline-container-orgd405b1f" class="outline-3">
+<h3 id="orgd405b1f">Expecting the unexpected</h3>
+<div class="outline-text-3" id="text-orgd405b1f">
+<p>
+Expect is a useful tool for setting up responses to scripts. In this case that script is youtube-viewer, which will effectively work as our backend for the dmenu frontend.
+</p>
+
+<p>
+Even though expect is typically used when you are certain about what you want, it still allows the use of wildcards, which works perfectly with how youtube-viewer keeps the same format for the prompts but displays seperate result sets.
+</p>
+
+<p>
+YT.tcl
+</p>
+<div class="highlight"><pre><span></span><span class="c">#!/usr/bin/expect --</span>
+<span class="k">set</span> search <span class="k">[</span><span class="nb">exec</span> fetch <span class="mi">1</span><span class="k">]</span>
+<span class="nb">puts</span> <span class="nv">$search</span>
+
+<span class="k">eval</span> spawn youtube-viewer <span class="o">--</span>player<span class="err">=</span>mpv <span class="nv">$search</span>
+<span class="nv">expect</span> <span class="o">-</span>re <span class="s2">&quot;=&gt;&gt;.*&quot;</span>
+<span class="k">set</span> out <span class="nv">$expect_out</span><span class="k">(</span><span class="nv">buffer</span><span class="k">)</span>
+<span class="k">set</span> choice <span class="k">[</span><span class="nb">exec</span> fetch <span class="nv">$out</span> <span class="nv">$out</span><span class="k">]</span>
+
+<span class="nv">send</span> <span class="o">--</span> <span class="s2">&quot;$choice \n&quot;</span>
+<span class="nv">wait</span>
+</pre></div>
+
+
+<p>
+This tcl script will communicate ( twice actually ) with a seperate shell script I wrote for displaying youtube-viewer's contents using dmenu
+</p>
+
+<p>
+fetch
+</p>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/sh</span>
+<span class="nv">font</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;Monospace-10:normal&quot;</span><span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]</span><span class="p">;</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;-----------------------------------------&quot;</span> <span class="p">|</span> dmenu -l <span class="m">20</span> -b -fn <span class="nv">$font</span>
+<span class="k">else</span>
+    <span class="nv">res</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;{$1=$2=&quot;&quot;; print NR-1, $0}&#39;</span> <span class="p">|</span> dmenu -l <span class="m">20</span> -b -fn <span class="nv">$font</span> -p <span class="s2">&quot;Results&quot;</span><span class="k">)</span>
+    <span class="nv">choice</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$res</span> <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+    <span class="nb">echo</span> <span class="nv">$choice</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-orge7d4b1f" class="outline-3">
+<h3 id="orge7d4b1f">Watching Youtube with the help of Dmenu!</h3>
+</div>
+</div>
+
+<div id="outline-container-org8d4a152" class="outline-2">
+<h2 id="org8d4a152">BONUS : File Exploration with Dmenu!</h2>
+<div class="outline-text-2" id="text-org8d4a152">
+<p>
+As a bit of a final comment on interesting uses for dmenu, I wrote up a quick example of a recursive dmenu script that will let you traverse a filesystem until you reach a file that can be opened with xdg open. If it's a folder the function recurses, otherwise it echoes the selected item and opens it.
+</p>
+
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/sh</span>
+
+scan<span class="o">()</span> 
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">[[</span> -d <span class="nv">$1</span> <span class="o">]]</span> 
+    <span class="k">then</span>
+	<span class="nv">chosen</span><span class="o">=</span><span class="k">$(</span>ls <span class="nv">$1</span> <span class="p">|</span> dmenu -l <span class="m">20</span> -i<span class="k">)</span>
+	scan <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">/</span><span class="nv">$chosen</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+	<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
+<span class="nv">name</span><span class="o">=</span><span class="k">$(</span>scan <span class="o">[[[</span>A DIRECTORY HERE<span class="o">]]]</span><span class="k">)</span>
+xdg-open <span class="nv">$name</span>
+</pre></div>
+
+<p>
+One application I've used this for is a study function that in the triple brackets is replaced with /home/hayden/Documents/books. I have that directory further divided between the kinds of books by directory, so the dmenu script will continue to display results in folders untill a .pdf or a .epub file is selected
+</p>
+
+
+<p>
+I hope these applications of dmenu have given you an idea of what can be accomplished with this simple tool.
+</p>
+</div>
+</div>
