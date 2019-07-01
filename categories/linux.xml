@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 07:32:04 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orgebe2698" class="outline-2"&gt;
-&lt;h2 id="orgebe2698"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgebe2698"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 20:30:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orge1ddc55" class="outline-2"&gt;
+&lt;h2 id="orge1ddc55"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orge1ddc55"&gt;
 &lt;p&gt;
 Dmenu is a fairly simple utility to use and understand. In essence it is a command-line utility that takes in a number of piped arguments and displays a simple menu of those arguments, with the selected argument being outputted back to stdout. It's a straight-forward concept but depending on how you use it you can make some very nifty tools.
 &lt;/p&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-orgee6a01e" class="outline-3"&gt;
-&lt;h3 id="orgee6a01e"&gt;Pre-requisites:&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgee6a01e"&gt;
+&lt;div id="outline-container-orgda0e6d2" class="outline-3"&gt;
+&lt;h3 id="orgda0e6d2"&gt;Pre-requisites:&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgda0e6d2"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;A cloned or downloaded sourcecode of dmenu&lt;/li&gt;
 &lt;li&gt;Gnu C compiler to compile dwm&lt;/li&gt;
@@ -17,13 +17,13 @@ Dmenu is a fairly simple utility to use and understand. In essence it is a comma
 &lt;li&gt;Youtube-viewer | consult your linux distribution&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>dmenu</category><category>linux</category><category>shell scripting</category><category>tcl</category><guid>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</guid><pubDate>Mon, 01 Jul 2019 00:35:09 GMT</pubDate></item><item><title>Modularizing Python</title><link>https://hsszyman.github.io/posts/modularizing-python/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;p&gt;
+&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/"&gt;Read more…&lt;/a&gt; (1 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>dmenu</category><category>linux</category><category>shell scripting</category><category>tcl</category><guid>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</guid><pubDate>Mon, 01 Jul 2019 00:35:09 GMT</pubDate></item><item><title>Modularizing Python</title><link>https://hsszyman.github.io/posts/modularizing-python/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;p&gt;
 Python is a fairly nifty language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
 &lt;/p&gt;
 
-&lt;div id="outline-container-org8fd71c1" class="outline-2"&gt;
-&lt;h2 id="org8fd71c1"&gt;Issue 1: Main Function not receiving declerations from later functions&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8fd71c1"&gt;
+&lt;div id="outline-container-orgd603eec" class="outline-2"&gt;
+&lt;h2 id="orgd603eec"&gt;Issue 1: Main Function not receiving declerations from later functions&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd603eec"&gt;
 &lt;p&gt;
 The first Issue I ran into was order of execution issues when using a main function. I'm a lot more used to and comfortable with having a main function, and while this can be done with python, you'll need to add a bit of code so that the main function is away of declerations called after it in the same file.
 &lt;/p&gt;
@@ -41,9 +41,9 @@ The first Issue I ran into was order of execution issues when using a main funct
 This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
 &lt;/p&gt;
 
-&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/modularizing-python/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>python</category><guid>https://hsszyman.github.io/posts/modularizing-python/</guid><pubDate>Sat, 29 Jun 2019 22:42:12 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm-holdbar/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;div id="outline-container-orgc2faa42" class="outline-2"&gt;
-&lt;h2 id="orgc2faa42"&gt;DWM In a Nutshell&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc2faa42"&gt;
+&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/modularizing-python/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>python</category><guid>https://hsszyman.github.io/posts/modularizing-python/</guid><pubDate>Sat, 29 Jun 2019 22:42:12 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm-holdbar/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;div id="outline-container-orgc65682c" class="outline-2"&gt;
+&lt;h2 id="orgc65682c"&gt;DWM In a Nutshell&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc65682c"&gt;
 &lt;p&gt;
 Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.&lt;br&gt;
 &lt;/p&gt;
@@ -56,9 +56,9 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 
 
 
-&lt;div id="outline-container-org42e2a2a" class="outline-2"&gt;
-&lt;h2 id="org42e2a2a"&gt;Coming up with a problem to solve&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org42e2a2a"&gt;
+&lt;div id="outline-container-org8d3dd1b" class="outline-2"&gt;
+&lt;h2 id="org8d3dd1b"&gt;Coming up with a problem to solve&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8d3dd1b"&gt;
 &lt;p&gt;
 One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.&lt;br&gt;
 &lt;/p&gt;

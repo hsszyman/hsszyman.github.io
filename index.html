@@ -2,7 +2,7 @@
 <html prefix="        og: http://ogp.me/ns# article: http://ogp.me/ns/article#     " vocab="http://ogp.me/ns" lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="A humble blog based around tinkering with various programming languages and environments">
+<meta name="description" content="Blog For Tinkering">
 <meta name="viewport" content="width=device-width">
 <title>Hayden's Tinkering Blog</title>
 <link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet" type="text/css">
@@ -43,17 +43,17 @@
             </span></p>
         </div>
     </header><div class="p-summary entry-summary">
-    <div id="outline-container-orgebe2698" class="outline-2">
-<h2 id="orgebe2698">Dmenu + youtube-viewer</h2>
-<div class="outline-text-2" id="text-orgebe2698">
+    <div id="outline-container-orge1ddc55" class="outline-2">
+<h2 id="orge1ddc55">Dmenu + youtube-viewer</h2>
+<div class="outline-text-2" id="text-orge1ddc55">
 <p>
 Dmenu is a fairly simple utility to use and understand. In essence it is a command-line utility that takes in a number of piped arguments and displays a simple menu of those arguments, with the selected argument being outputted back to stdout. It's a straight-forward concept but depending on how you use it you can make some very nifty tools.
 </p>
 </div>
 
-<div id="outline-container-orgee6a01e" class="outline-3">
-<h3 id="orgee6a01e">Pre-requisites:</h3>
-<div class="outline-text-3" id="text-orgee6a01e">
+<div id="outline-container-orgda0e6d2" class="outline-3">
+<h3 id="orgda0e6d2">Pre-requisites:</h3>
+<div class="outline-text-3" id="text-orgda0e6d2">
 <ol class="org-ol">
 <li>A cloned or downloaded sourcecode of dmenu</li>
 <li>Gnu C compiler to compile dwm</li>
@@ -78,9 +78,9 @@ Dmenu is a fairly simple utility to use and understand. In essence it is a comma
 Python is a fairly nifty language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
 </p>
 
-<div id="outline-container-org8fd71c1" class="outline-2">
-<h2 id="org8fd71c1">Issue 1: Main Function not receiving declerations from later functions</h2>
-<div class="outline-text-2" id="text-org8fd71c1">
+<div id="outline-container-orgd603eec" class="outline-2">
+<h2 id="orgd603eec">Issue 1: Main Function not receiving declerations from later functions</h2>
+<div class="outline-text-2" id="text-orgd603eec">
 <p>
 The first Issue I ran into was order of execution issues when using a main function. I'm a lot more used to and comfortable with having a main function, and while this can be done with python, you'll need to add a bit of code so that the main function is away of declerations called after it in the same file.
 </p>
@@ -112,9 +112,9 @@ This will run your main function after all other functions have been called ( ba
         </div>
     </header><div class="p-summary entry-summary">
     <div>
-<div id="outline-container-orgc2faa42" class="outline-2">
-<h2 id="orgc2faa42">DWM In a Nutshell</h2>
-<div class="outline-text-2" id="text-orgc2faa42">
+<div id="outline-container-orgc65682c" class="outline-2">
+<h2 id="orgc65682c">DWM In a Nutshell</h2>
+<div class="outline-text-2" id="text-orgc65682c">
 <p>
 Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.<br></p>
 
@@ -125,9 +125,9 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 
 
 
-<div id="outline-container-org42e2a2a" class="outline-2">
-<h2 id="org42e2a2a">Coming up with a problem to solve</h2>
-<div class="outline-text-2" id="text-org42e2a2a">
+<div id="outline-container-org8d3dd1b" class="outline-2">
+<h2 id="org8d3dd1b">Coming up with a problem to solve</h2>
+<div class="outline-text-2" id="text-org8d3dd1b">
 <p>
 One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.<br></p>
 

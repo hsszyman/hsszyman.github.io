@@ -7,46 +7,50 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://hsszyman.github.io/categories/bash.xml</loc>
-  <lastmod>2019-07-01T00:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/c.xml</loc>
-  <lastmod>2019-07-01T07:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/cat_programming.xml</loc>
-  <lastmod>2019-07-01T07:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/dmenu.xml</loc>
-  <lastmod>2019-07-01T06:59:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/dwm.xml</loc>
-  <lastmod>2019-07-01T07:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/linux.xml</loc>
-  <lastmod>2019-07-01T07:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/python.xml</loc>
-  <lastmod>2019-07-01T00:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/shell-scripting.xml</loc>
-  <lastmod>2019-07-01T07:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/tcl.xml</loc>
-  <lastmod>2019-07-01T06:59:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/galleries/rss.xml</loc>
+  <lastmod>2019-07-01T20:37:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/rss.xml</loc>
-  <lastmod>2019-07-01T07:32:00Z</lastmod>
+  <lastmod>2019-07-01T20:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/sitemap.xml</loc>
-  <lastmod>2019-07-01T19:26:00Z</lastmod>
+  <lastmod>2019-07-01T20:37:00Z</lastmod>
  </sitemap>
 </sitemapindex>
