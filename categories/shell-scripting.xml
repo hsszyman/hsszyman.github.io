@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about shell scripting)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/shell-scripting.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 20:46:57 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orgebedcbb" class="outline-2"&gt;
-&lt;h2 id="orgebedcbb"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgebedcbb"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about shell scripting)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/shell-scripting.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 20:49:13 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-org4b99b36" class="outline-2"&gt;
+&lt;h2 id="org4b99b36"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4b99b36"&gt;
 &lt;p&gt;
 Dmenu is a fairly simple utility to use and understand. In essence it is a command-line utility that takes in a number of piped arguments and displays a simple menu of those arguments, with the selected argument being outputted back to stdout. It's a straight-forward concept but depending on how you use it you can make some very nifty tools.
 &lt;/p&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-orgf1a60d1" class="outline-3"&gt;
-&lt;h3 id="orgf1a60d1"&gt;Pre-requisites:&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgf1a60d1"&gt;
+&lt;div id="outline-container-orge8549ca" class="outline-3"&gt;
+&lt;h3 id="orge8549ca"&gt;Pre-requisites:&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orge8549ca"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;A cloned or downloaded sourcecode of dmenu&lt;/li&gt;
 &lt;li&gt;Gnu C compiler to compile dwm&lt;/li&gt;

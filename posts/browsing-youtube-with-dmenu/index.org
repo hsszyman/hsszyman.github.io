@@ -61,6 +61,8 @@ fetch
 ** Watching Youtube with the help of Dmenu!
 [[img-url:/images/YT.gif]]
 
+NOTE: This gif is significantly slower than the realtime speed of the screencapture
+
 * BONUS : File Exploration with Dmenu!
 
 As a bit of a final comment on interesting uses for dmenu, I wrote up a quick example of a recursive dmenu script that will let you traverse a filesystem until you reach a file that can be opened with xdg open. If it's a folder the function recurses, otherwise it echoes the selected item and opens it.
