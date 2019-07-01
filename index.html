@@ -1,62 +1,124 @@
 <!DOCTYPE html>
-<html prefix="" lang="en">
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="description" content="T">
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hayden's Tinkering Blog</title>
-<link href="assets/css/rst.css" rel="stylesheet" type="text/css">
-<link href="assets/css/code.css" rel="stylesheet" type="text/css">
-<link href="assets/css/dark.css" rel="stylesheet" type="text/css">
-<link href="assets/css/theme.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://hsszyman.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/modularizing-python/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/browsing-youtube-with-dmenu/" type="text/html">
 </head>
-<body class="hack dark">
-
+<body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
-    <div id="container">
-         
-    <header id="header"><h1 id="brand"><a href="https://hsszyman.github.io/" title="Hayden's Tinkering Blog" rel="home">
 
-        <span id="blog-title">Hayden's Tinkering Blog</span>
-    </a></h1>
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://hsszyman.github.io/">
 
+            <span id="blog-title">Hayden's Tinkering Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+    
         
 
+    
         
-    <nav id="menu"><ul>
-<li><a href="archive.html">Archive</a></li>
-                <li><a href="categories/">Tags</a></li>
-                <li><a href="rss.xml">RSS feed</a></li>
+    <div class="postindex">
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/browsing-youtube-with-dmenu/" class="u-url">Browsing Youtube with Dmenu</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hayden Szymanski
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/browsing-youtube-with-dmenu/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-30T20:35:09-04:00" itemprop="datePublished" title="2019-06-30 20:35">2019-06-30 20:35</time></a>
+            </p>
+                </div>
+            </header><div class="p-summary entry-summary">
+                    <div id="outline-container-orgebe2698" class="outline-2">
+<h2 id="orgebe2698">Dmenu + youtube-viewer</h2>
+<div class="outline-text-2" id="text-orgebe2698">
+<p>
+Dmenu is a fairly simple utility to use and understand. In essence it is a command-line utility that takes in a number of piped arguments and displays a simple menu of those arguments, with the selected argument being outputted back to stdout. It's a straight-forward concept but depending on how you use it you can make some very nifty tools.
+</p>
+</div>
 
-    
-
-    
-    
-    </ul></nav></header><main id="content"><div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/modularizing-python/" class="u-url">Modularizing Python</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Hayden Szymanski
-            </span></p>
+<div id="outline-container-orgee6a01e" class="outline-3">
+<h3 id="orgee6a01e">Pre-requisites:</h3>
+<div class="outline-text-3" id="text-orgee6a01e">
+<ol class="org-ol">
+<li>A cloned or downloaded sourcecode of dmenu</li>
+<li>Gnu C compiler to compile dwm</li>
+<li>Expect ( tcl library ) | consult your linux distribution</li>
+<li>Youtube-viewer | consult your linux distribution</li>
+</ol>
+<p class="more"><a href="posts/browsing-youtube-with-dmenu/">Read more…</a></p>
+</div>
+</div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/modularizing-python/" class="u-url">Modularizing Python</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hayden Szymanski
+                    </span></p>
             <p class="dateline">
             <a href="posts/modularizing-python/" rel="bookmark">
             <time class="published dt-published" datetime="2019-06-29T18:42:12-04:00" itemprop="datePublished" title="2019-06-29 18:42">2019-06-29 18:42</time></a>
             </p>
-        </div>
-    </header><div class="e-content entry-content">
-    <p>
+                </div>
+            </header><div class="p-summary entry-summary">
+                    <div>
+<p>
 Python is a fairly nifty language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
 </p>
 
-<div id="outline-container-org8b21afd" class="outline-2">
-<h2 id="org8b21afd">Issue 1: Main Function not receiving declerations from later functions</h2>
-<div class="outline-text-2" id="text-org8b21afd">
+<div id="outline-container-org8fd71c1" class="outline-2">
+<h2 id="org8fd71c1">Issue 1: Main Function not receiving declerations from later functions</h2>
+<div class="outline-text-2" id="text-org8fd71c1">
 <p>
 The first Issue I ran into was order of execution issues when using a main function. I'm a lot more used to and comfortable with having a main function, and while this can be done with python, you'll need to add a bit of code so that the main function is away of declerations called after it in the same file.
 </p>
@@ -73,85 +135,27 @@ The first Issue I ran into was order of execution issues when using a main funct
 <p>
 This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
 </p>
+
+<p class="more"><a href="posts/modularizing-python/">Read more…</a></p>
 </div>
 </div>
-
-<div id="outline-container-orgb37e3f0" class="outline-2">
-<h2 id="orgb37e3f0">Issue 2 : Portable python code that can be executed</h2>
-<div class="outline-text-2" id="text-orgb37e3f0">
-<p>
-Another Issue ( and slightly harder for me to fix ) was creating a single, runnable file that I can execute python code from, without having to worry about linkages to external files. Luckily, in python this is completely doable if you make use of pythons ability to run python code from within a zip file if you have a file within it called <span class="underline"><span class="underline">main</span></span>.py. If I create a project structure and zip it, I can still execute everything ( barring imports are relative pathed ) from calling that zip file! This let's us have multi-file python projects that can potentially be executed in a manner similar to an executable, with all the dependencies included.
-</p>
 </div>
-</div>
-
-<div id="outline-container-org65d3577" class="outline-2">
-<h2 id="org65d3577">A comprehensive solution to our problems</h2>
-<div class="outline-text-2" id="text-org65d3577">
-<p>
-I took the liberty of writing up a fairly complete bash script that automates this entire process for you. It takes in a argument representing the project name. In addition it does several other things:
-</p>
-
-<ol class="org-ol">
-<li>Generates a main file with a similar python template to the one I showed earlier.</li>
-<li>Bundles all the python files in your current directory into a new zip file</li>
-<li>Renames whatever the main file is in your program to <span class="underline"><span class="underline">main</span></span>.py</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span> 
-<span class="k">then</span>
-	<span class="nb">exit</span> <span class="m">1</span>
-<span class="k">else</span>
-	<span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
-<span class="k">fi</span>
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">2</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"init"</span> <span class="o">]</span>
-<span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">"from __future__ import print_function"</span> &gt;&gt; <span class="nv">$1</span>.py
-    <span class="nb">echo</span> &gt;&gt; <span class="nv">$1</span>.py
-    <span class="nb">echo</span> <span class="s2">"def main_func():"</span> &gt;&gt; <span class="nv">$1</span>.py
-    <span class="nb">echo</span>    <span class="s2">"    print(\"stub\")"</span> &gt;&gt; <span class="nv">$1</span>.py
-    <span class="nb">echo</span> &gt;&gt; <span class="nv">$1</span>.py
-    <span class="nb">echo</span> <span class="s2">"if __name__ == \"__main__\":"</span> &gt;&gt; <span class="nv">$1</span>.py
-    <span class="nb">echo</span> <span class="s2">"    main_func()"</span> &gt;&gt; <span class="nv">$1</span>.py
-<span class="k">fi</span>
-<span class="nv">main_file</span><span class="o">=</span><span class="s2">"</span><span class="nv">$name</span><span class="s2">.py"</span>
-
-
-mkdir <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
-cp -r <span class="nv">$main_file</span> ./<span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>/__main__.py <span class="m">2</span>&gt; /dev/null
-cp -r <span class="k">$(</span>ls *.py <span class="p">|</span> grep -v <span class="nv">$main_file</span><span class="k">)</span> ./<span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>/ <span class="m">2</span>&gt; /dev/null
-<span class="nb">cd</span> ./<span class="nv">$name</span>
-zip ../<span class="nv">$name</span> <span class="k">$(</span>ls *.py<span class="k">)</span>
-<span class="nb">cd</span> ..
-
-<span class="k">if</span> <span class="o">[</span> ! -d <span class="s2">"output"</span> <span class="o">]</span>
-<span class="k">then</span>
-	mkdir output
-<span class="k">fi</span>
-
-mv <span class="nv">$name</span>.zip ./output
-chmod <span class="m">777</span> ./output/<span class="nv">$name</span>.zip
-rm -r <span class="nv">$name</span>
-mv ./output/<span class="nv">$name</span>.zip ./output/<span class="nv">$name</span>
-</pre></div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/dwm/" class="u-url">Hacking DWM : Holdbar</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Hayden Szymanski
-            </span></p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/dwm-holdbar/" class="u-url">Hacking DWM : Holdbar</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hayden Szymanski
+                    </span></p>
             <p class="dateline">
-            <a href="posts/dwm/" rel="bookmark">
+            <a href="posts/dwm-holdbar/" rel="bookmark">
             <time class="published dt-published" datetime="2019-06-27T18:14:25-04:00" itemprop="datePublished" title="2019-06-27 18:14">2019-06-27 18:14</time></a>
             </p>
-        </div>
-    </header><div class="e-content entry-content">
-    <div id="outline-container-orge77728d" class="outline-2">
-<h2 id="orge77728d">DWM In a Nutshell</h2>
-<div class="outline-text-2" id="text-orge77728d">
+                </div>
+            </header><div class="p-summary entry-summary">
+                    <div>
+<div id="outline-container-org20956d4" class="outline-2">
+<h2 id="org20956d4">DWM In a Nutshell</h2>
+<div class="outline-text-2" id="text-org20956d4">
 <p>
 Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.<br></p>
 
@@ -162,251 +166,45 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 
 
 
-<div id="outline-container-orgb0eb08a" class="outline-2">
-<h2 id="orgb0eb08a">Coming up with a problem to solve</h2>
-<div class="outline-text-2" id="text-orgb0eb08a">
+<div id="outline-container-orgd509798" class="outline-2">
+<h2 id="orgd509798">Coming up with a problem to solve</h2>
+<div class="outline-text-2" id="text-orgd509798">
 <p>
 One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.<br></p>
 
 <p>
 In short, we want the bar only to be seen when held, what I call a holdbar.<br></p>
+
+<p class="more"><a href="posts/dwm-holdbar/">Read more…</a></p>
 </div>
 </div>
-
-<div id="outline-container-orgd53f3f2" class="outline-2">
-<h2 id="orgd53f3f2">Setting up the environment</h2>
-<div class="outline-text-2" id="text-orgd53f3f2">
-<p>
-Before you can get started with dwm you need to actually install it.<br>
-Because of suckless's <a href="https://suckless.org/philosophy/">philosophy</a> you will need to download download the source code.<br>
-For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.<br></p>
-
-<p>
-Go ahead and download the dwm sourcecode by typing<br></p>
-<div class="highlight"><pre><span></span>git clone https://git.suckless.org/dwm
-</pre></div>
-
-<p>
-then let's cd into the new git directory and prepare our local repo for setting up patches.<br></p>
-
-<div class="highlight"><pre><span></span><span class="nb">cd</span> dwm
-git branch new_feature
-git checkout new_feature
-</pre></div>
 </div>
+                </div>
+            </article>
 </div>
+    
+
+    
+
+    
 
 
-<div id="outline-container-orge39091f" class="outline-2">
-<h2 id="orge39091f">Understanding The Structure</h2>
-<div class="outline-text-2" id="text-orge39091f">
-<p>
-The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often<br></p>
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<colgroup>
-<col class="org-left">
-<col class="org-left">
-<col class="org-left">
-</colgroup>
-<thead><tr>
-<th scope="col" class="org-left">Filename</th>
-<th scope="col" class="org-left">Role</th>
-<th scope="col" class="org-left">notes</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="org-left">config.def.h</td>
-<td class="org-left">Used to apply patch code to config files,</td>
-<td class="org-left">Generates config.h upon compile</td>
-</tr>
-<tr>
-<td class="org-left">config.h</td>
-<td class="org-left">quick configuration meant to be edited frequently, updates dwm on make clean config</td>
-<td class="org-left">Used for making edits that will effect dwm upon recompile</td>
-</tr>
-<tr>
-<td class="org-left">dwm.c</td>
-<td class="org-left">More in depth configuration, being the main source code</td>
-<td class="org-left"> </td>
-</tr>
-</tbody>
-</table>
-<p>
-=<br></p>
+        <!--End of body content-->
 
-
-
-<p>
-Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.<br></p>
-
-<p>
-For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h<br></p>
-</div>
-</div>
-
-<div id="outline-container-orgeb85917" class="outline-2">
-<h2 id="orgeb85917">Writing your patch</h2>
-<div class="outline-text-2" id="text-orgeb85917">
-<p>
-Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add. After that you'll want to write a <b>detailed</b> comment for your commit<br></p>
-<div class="highlight"><pre><span></span>git commit -m <span class="s2">"SUPER DETAILED AND AWESOME DESCRIPTION HERE"</span>
-</pre></div>
-
-<p>
-Suckless has certain <a href="https://suckless.org/hacking/">guidelines</a> to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you<br></p>
-
-<div class="highlight"><pre><span></span><span class="c1">#/usr/bin/sh</span>
-git format-patch --stdout HEAD^ &gt; <span class="nv">$1</span>-<span class="k">$(</span>date +<span class="s2">"%Y%m%d"</span><span class="k">)</span>-<span class="k">$(</span>git rev-parse --short <span class="k">$(</span>git log <span class="p">|</span> awk <span class="s1">'NR==1{print $2}'</span><span class="k">))</span>.diff
-</pre></div>
-
-<p>
-Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like<br></p>
-<div class="highlight"><pre><span></span>./gen-patch dwm-holdbar
-</pre></div>
-<p>
-This will generate a properly named patch for you.<br></p>
-
-<p>
-After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install!<br></p>
-
-<p>
-Just for those curious here is the holdbar patch that I wrote<br></p>
-
-<div class="highlight"><pre><span></span>From 6663a23fc0abce840bbbd31cec36434ee52a93b3 Mon Sep 17 00:00:00 2001
-From: hsszyman &lt;hsszyman@gmail.com&gt;
-Date: Wed, 26 Jun 2019 13:48:41 -0400
-Subject: [PATCH] holdbar
-
----
- config.def.h |  5 +++--
- dwm.c        | 24 ++++++++++++++++++++++--
- 2 files changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/config.def.h b/config.def.h
-index 1c0b587..82c88d5 100644
---- a/config.def.h
-+++ b/config.def.h
-@@ -3,7 +3,7 @@
- /* appearance */
- static const unsigned int borderpx  = 1;        /* border pixel of windows */
- static const unsigned int snap      = 32;       /* snap pixel */
--static const int showbar            = 1;        /* 0 means no bar */
-+static const int showbar            = 0;        /* 0 means no bar */
- static const int topbar             = 1;        /* 0 means bottom bar */
- static const char *fonts[]          = { "monospace:size=10" };
- static const char dmenufont[]       = "monospace:size=10";
-@@ -44,7 +44,7 @@ static const Layout layouts[] = {
- };
-
- /* key definitions */
--#define MODKEY Mod1Mask
-+#define MODKEY Mod4Mask
- #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 &lt;&lt; TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 &lt;&lt; TAG} }, \
-@@ -94,6 +94,7 @@ static Key keys[] = {
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-+        { 0,                            XK_Super_L,holdbar,         {0} },
- };
-
- /* button definitions */
-diff --git a/dwm.c b/dwm.c
-index 4465af1..1933e2d 100644
---- a/dwm.c
-+++ b/dwm.c
-@@ -176,6 +176,7 @@ static void grabbuttons(Client *c, int focused);
- static void grabkeys(void);
- static void incnmaster(const Arg *arg);
- static void keypress(XEvent *e);
-+static void keyrelease(XEvent *e);
- static void killclient(const Arg *arg);
- static void manage(Window w, XWindowAttributes *wa);
- static void mappingnotify(XEvent *e);
-@@ -210,6 +211,7 @@ static void tag(const Arg *arg);
- static void tagmon(const Arg *arg);
- static void tile(Monitor *);
- static void togglebar(const Arg *arg);
-+static void holdbar(const Arg *arg);
- static void togglefloating(const Arg *arg);
- static void toggletag(const Arg *arg);
- static void toggleview(const Arg *arg);
-@@ -245,6 +247,7 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
- static unsigned int numlockmask = 0;
- static void (*handler[LASTEvent]) (XEvent *) = {
-	[ButtonPress] = buttonpress,
-+        [ButtonRelease] = keyrelease,
-	[ClientMessage] = clientmessage,
-	[ConfigureRequest] = configurerequest,
-	[ConfigureNotify] = configurenotify,
-@@ -252,6 +255,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
-	[EnterNotify] = enternotify,
-	[Expose] = expose,
-	[FocusIn] = focusin,
-+        [KeyRelease] = keyrelease,
-	[KeyPress] = keypress,
-	[MappingNotify] = mappingnotify,
-	[MapRequest] = maprequest,
-@@ -275,6 +279,24 @@ static Window root, wmcheckwin;
- struct NumTags { char limitexceeded[LENGTH(tags) &gt; 31 ? -1 : 1]; };
-
- /* function implementations */
-+
-+void
-+keyrelease(XEvent *e) {
-+        if (e-&gt;xkey.keycode == XKeysymToKeycode(dpy, XK_Super_L)) {
-+                selmon-&gt;showbar = 0;
-+                updatebarpos(selmon);
-+                XMoveResizeWindow(dpy, selmon-&gt;barwin, selmon-&gt;wx, selmon-&gt;by, selmon-&gt;ww, bh);
-+                arrange(selmon);
-+        }
-+}
-+
-+void
-+holdbar(const Arg *arg)
-+{
-+        selmon-&gt;showbar = 1;
-+        updatebarpos(selmon);
-+        XMoveResizeWindow(dpy, selmon-&gt;barwin, selmon-&gt;wx, selmon-&gt;by, selmon-&gt;ww, bh);
-+}
- void
- applyrules(Client *c)
- {
-@@ -1826,9 +1848,7 @@ updatebarpos(Monitor *m)
-	m-&gt;wy = m-&gt;my;
-	m-&gt;wh = m-&gt;mh;
-	if (m-&gt;showbar) {
--		m-&gt;wh -= bh;
-		m-&gt;by = m-&gt;topbar ? m-&gt;wy : m-&gt;wy + m-&gt;wh;
--		m-&gt;wy = m-&gt;topbar ? m-&gt;wy + bh : m-&gt;wy;
-	} else
-		m-&gt;by = -bh;
- }
--- 
-2.22.0
-</pre></div>
-</div>
-</div>
-    </div>
-    </article>
-</div>
-
-
-
-
-
-
-
-         </main><footer id="footer"><p>Contents © 2019         <a href="mailto:hsszyman@gmail.com">Hayden Szymanski</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        <footer id="footer">
+            Contents © 2019         <a href="mailto:hsszyman@gmail.com">Hayden Szymanski</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
 </div>
-    
-    
+</div>
 
-    
-    
-    
+
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
 </body>
 </html>

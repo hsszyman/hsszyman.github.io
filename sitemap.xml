@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://hsszyman.github.io/</loc>
-  <lastmod>2019-06-28T06:58:00Z</lastmod>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/2019/</loc>
@@ -15,11 +15,11 @@
  </url>
  <url>
   <loc>https://hsszyman.github.io/archive.html</loc>
-  <lastmod>2019-06-30T01:18:00Z</lastmod>
+  <lastmod>2019-07-01T00:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/categories/</loc>
-  <lastmod>2019-06-29T23:34:00Z</lastmod>
+  <lastmod>2019-07-01T00:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/categories/bash/</loc>
@@ -32,6 +32,10 @@
  <url>
   <loc>https://hsszyman.github.io/categories/cat_programming/</loc>
   <lastmod>2019-06-28T06:58:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://hsszyman.github.io/categories/dmenu/</loc>
+  <lastmod>2019-07-01T00:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/categories/dwm/</loc>
@@ -48,6 +52,18 @@
  <url>
   <loc>https://hsszyman.github.io/categories/shell-scripting/</loc>
   <lastmod>2019-06-28T06:58:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://hsszyman.github.io/categories/tcl/</loc>
+  <lastmod>2019-07-01T00:35:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</loc>
+  <lastmod>2019-07-01T00:35:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://hsszyman.github.io/posts/dwm-holdbar/</loc>
+  <lastmod>2019-07-01T00:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://hsszyman.github.io/posts/dwm/</loc>

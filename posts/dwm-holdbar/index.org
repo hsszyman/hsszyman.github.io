@@ -1,0 +1,86 @@
+#+BEGIN_COMMENT
+.. title: Hacking DWM : Holdbar
+.. slug: dwm-holdbar
+.. date: 2019-06-27 18:14:25 UTC-04:00
+.. tags: dwm, C, linux, shell scripting
+.. category: Programming
+.. link: https://dwm.suckless.org/patches/holdbar/
+.. description: Holdbar
+.. type: text
+
+#+END_COMMENT
+
+#+OPTIONS: \n:t
+
+* DWM In a Nutshell
+Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.
+
+In a later blog post I'll go into more details on the unique aspects of dwm, but for today let's look at hacking it.
+
+
+
+* Coming up with a problem to solve
+One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.
+
+In short, we want the bar only to be seen when held, what I call a holdbar. 
+
+{{{TEASER_END}}}
+
+* Setting up the environment
+Before you can get started with dwm you need to actually install it. 
+Because of suckless's [[https://suckless.org/philosophy/][philosophy]] you will need to download download the source code. 
+For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.
+
+Go ahead and download the dwm sourcecode by typing
+#+BEGIN_SRC sh
+  git clone https://git.suckless.org/dwm
+#+END_SRC
+
+then let's cd into the new git directory and prepare our local repo for setting up patches.
+
+#+BEGIN_SRC sh
+  cd dwm
+  git branch new_feature
+  git checkout new_feature
+#+END_SRC
+
+
+* Understanding The Structure
+  The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often
+  | Filename     | Role                                                                                | notes                                                     |
+  |--------------+-------------------------------------------------------------------------------------+-----------------------------------------------------------|
+  | config.def.h | Used to apply patch code to config files,                                           | Generates config.h upon compile                           |
+  | config.h     | quick configuration meant to be edited frequently, updates dwm on make clean config | Used for making edits that will effect dwm upon recompile |
+  | dwm.c        | More in depth configuration, being the main source code                             |                                                           |
+  |--------------+-------------------------------------------------------------------------------------+-----------------------------------------------------------|
+  =
+
+      
+
+Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.
+
+For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h
+
+* Writing your patch
+Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add. After that you'll want to write a *detailed* comment for your commit
+#+BEGIN_SRC sh
+  git commit -m "SUPER DETAILED AND AWESOME DESCRIPTION HERE"
+#+END_SRC
+
+Suckless has certain [[https://suckless.org/hacking/][guidelines]] to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you
+
+#+BEGIN_SRC sh
+  #/usr/bin/sh
+  git format-patch --stdout HEAD^ > $1-$(date +"%Y%m%d")-$(git rev-parse --short $(git log | awk 'NR==1{print $2}')).diff
+#+END_SRC
+
+Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like
+#+BEGIN_SRC sh
+  ./gen-patch dwm-holdbar
+#+END_SRC
+This will generate a properly named patch for you.
+
+After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install! 
+
+* Bonus : Holbar
+As an example of what you can do to hack dwm I've included the wiki entry to holbar [[https://dwm.suckless.org/patches/holdbar/][here]].

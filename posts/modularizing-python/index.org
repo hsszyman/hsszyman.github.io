@@ -28,6 +28,8 @@ The first Issue I ran into was order of execution issues when using a main funct
 
 This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
 
+{{{TEASER_END}}}
+
 * Issue 2 : Portable python code that can be executed
 
 Another Issue ( and slightly harder for me to fix ) was creating a single, runnable file that I can execute python code from, without having to worry about linkages to external files. Luckily, in python this is completely doable if you make use of pythons ability to run python code from within a zip file if you have a file within it called __main__.py. If I create a project structure and zip it, I can still execute everything ( barring imports are relative pathed ) from calling that zip file! This let's us have multi-file python projects that can potentially be executed in a manner similar to an executable, with all the dependencies included.

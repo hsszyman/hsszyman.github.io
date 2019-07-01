@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Sat, 29 Jun 2019 23:40:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Modularizing Python</title><link>https://hsszyman.github.io/posts/modularizing-python/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 06:59:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orgebe2698" class="outline-2"&gt;
+&lt;h2 id="orgebe2698"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgebe2698"&gt;
+&lt;p&gt;
+Dmenu is a fairly simple utility to use and understand. In essence it is a command-line utility that takes in a number of piped arguments and displays a simple menu of those arguments, with the selected argument being outputted back to stdout. It's a straight-forward concept but depending on how you use it you can make some very nifty tools.
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgee6a01e" class="outline-3"&gt;
+&lt;h3 id="orgee6a01e"&gt;Pre-requisites:&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgee6a01e"&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;A cloned or downloaded sourcecode of dmenu&lt;/li&gt;
+&lt;li&gt;Gnu C compiler to compile dwm&lt;/li&gt;
+&lt;li&gt;Expect ( tcl library ) | consult your linux distribution&lt;/li&gt;
+&lt;li&gt;Youtube-viewer | consult your linux distribution&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>dmenu</category><category>linux</category><category>shell scripting</category><category>tcl</category><guid>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</guid><pubDate>Mon, 01 Jul 2019 00:35:09 GMT</pubDate></item><item><title>Modularizing Python</title><link>https://hsszyman.github.io/posts/modularizing-python/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;p&gt;
 Python is a fairly nifty language that is extremely approacheable and easy to use, especially in a unix environment. There are a few drawbacks for writing scripts with python and preparing it for deployment to be used as a commandline tool.
 &lt;/p&gt;
 
-&lt;div id="outline-container-org8b21afd" class="outline-2"&gt;
-&lt;h2 id="org8b21afd"&gt;Issue 1: Main Function not receiving declerations from later functions&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8b21afd"&gt;
+&lt;div id="outline-container-org8fd71c1" class="outline-2"&gt;
+&lt;h2 id="org8fd71c1"&gt;Issue 1: Main Function not receiving declerations from later functions&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8fd71c1"&gt;
 &lt;p&gt;
 The first Issue I ran into was order of execution issues when using a main function. I'm a lot more used to and comfortable with having a main function, and while this can be done with python, you'll need to add a bit of code so that the main function is away of declerations called after it in the same file.
 &lt;/p&gt;
@@ -22,73 +40,10 @@ The first Issue I ran into was order of execution issues when using a main funct
 &lt;p&gt;
 This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
 &lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 
-&lt;div id="outline-container-orgb37e3f0" class="outline-2"&gt;
-&lt;h2 id="orgb37e3f0"&gt;Issue 2 : Portable python code that can be executed&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgb37e3f0"&gt;
-&lt;p&gt;
-Another Issue ( and slightly harder for me to fix ) was creating a single, runnable file that I can execute python code from, without having to worry about linkages to external files. Luckily, in python this is completely doable if you make use of pythons ability to run python code from within a zip file if you have a file within it called &lt;span class="underline"&gt;&lt;span class="underline"&gt;main&lt;/span&gt;&lt;/span&gt;.py. If I create a project structure and zip it, I can still execute everything ( barring imports are relative pathed ) from calling that zip file! This let's us have multi-file python projects that can potentially be executed in a manner similar to an executable, with all the dependencies included.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div id="outline-container-org65d3577" class="outline-2"&gt;
-&lt;h2 id="org65d3577"&gt;A comprehensive solution to our problems&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org65d3577"&gt;
-&lt;p&gt;
-I took the liberty of writing up a fairly complete bash script that automates this entire process for you. It takes in a argument representing the project name. In addition it does several other things:
-&lt;/p&gt;
-
-&lt;ol class="org-ol"&gt;
-&lt;li&gt;Generates a main file with a similar python template to the one I showed earlier.&lt;/li&gt;
-&lt;li&gt;Bundles all the python files in your current directory into a new zip file&lt;/li&gt;
-&lt;li&gt;Renames whatever the main file is in your program to &lt;span class="underline"&gt;&lt;span class="underline"&gt;main&lt;/span&gt;&lt;/span&gt;.py&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$#&lt;/span&gt; -eq &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; 
-&lt;span class="k"&gt;then&lt;/span&gt;
-	&lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
-&lt;span class="k"&gt;else&lt;/span&gt;
-	&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;
-&lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$#&lt;/span&gt; -eq &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$2&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;"init"&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
-&lt;span class="k"&gt;then&lt;/span&gt;
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"from __future__ import print_function"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"def main_func():"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
-    &lt;span class="nb"&gt;echo&lt;/span&gt;    &lt;span class="s2"&gt;"    print(\"stub\")"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"if __name__ == \"__main__\":"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"    main_func()"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;.py
-&lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;span class="nv"&gt;main_file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;.py"&lt;/span&gt;
-
-
-mkdir &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
-cp -r &lt;span class="nv"&gt;$main_file&lt;/span&gt; ./&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;/__main__.py &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null
-cp -r &lt;span class="k"&gt;$(&lt;/span&gt;ls *.py &lt;span class="p"&gt;|&lt;/span&gt; grep -v &lt;span class="nv"&gt;$main_file&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt; ./&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$name&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;/ &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null
-&lt;span class="nb"&gt;cd&lt;/span&gt; ./&lt;span class="nv"&gt;$name&lt;/span&gt;
-zip ../&lt;span class="nv"&gt;$name&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ls *.py&lt;span class="k"&gt;)&lt;/span&gt;
-&lt;span class="nb"&gt;cd&lt;/span&gt; ..
-
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -d &lt;span class="s2"&gt;"output"&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
-&lt;span class="k"&gt;then&lt;/span&gt;
-	mkdir output
-&lt;span class="k"&gt;fi&lt;/span&gt;
-
-mv &lt;span class="nv"&gt;$name&lt;/span&gt;.zip ./output
-chmod &lt;span class="m"&gt;777&lt;/span&gt; ./output/&lt;span class="nv"&gt;$name&lt;/span&gt;.zip
-rm -r &lt;span class="nv"&gt;$name&lt;/span&gt;
-mv ./output/&lt;span class="nv"&gt;$name&lt;/span&gt;.zip ./output/&lt;span class="nv"&gt;$name&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description><category>bash</category><category>linux</category><category>python</category><guid>https://hsszyman.github.io/posts/modularizing-python/</guid><pubDate>Sat, 29 Jun 2019 22:42:12 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orge77728d" class="outline-2"&gt;
-&lt;h2 id="orge77728d"&gt;DWM In a Nutshell&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge77728d"&gt;
+&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/modularizing-python/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>python</category><guid>https://hsszyman.github.io/posts/modularizing-python/</guid><pubDate>Sat, 29 Jun 2019 22:42:12 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm-holdbar/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;div id="outline-container-org20956d4" class="outline-2"&gt;
+&lt;h2 id="org20956d4"&gt;DWM In a Nutshell&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org20956d4"&gt;
 &lt;p&gt;
 Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.&lt;br&gt;
 &lt;/p&gt;
@@ -101,9 +56,9 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 
 
 
-&lt;div id="outline-container-orgb0eb08a" class="outline-2"&gt;
-&lt;h2 id="orgb0eb08a"&gt;Coming up with a problem to solve&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgb0eb08a"&gt;
+&lt;div id="outline-container-orgd509798" class="outline-2"&gt;
+&lt;h2 id="orgd509798"&gt;Coming up with a problem to solve&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd509798"&gt;
 &lt;p&gt;
 One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.&lt;br&gt;
 &lt;/p&gt;
@@ -111,242 +66,5 @@ One feature I try to implement on any new window manager I use is only showing t
 &lt;p&gt;
 In short, we want the bar only to be seen when held, what I call a holdbar.&lt;br&gt;
 &lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 
-&lt;div id="outline-container-orgd53f3f2" class="outline-2"&gt;
-&lt;h2 id="orgd53f3f2"&gt;Setting up the environment&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd53f3f2"&gt;
-&lt;p&gt;
-Before you can get started with dwm you need to actually install it.&lt;br&gt;
-Because of suckless's &lt;a href="https://suckless.org/philosophy/"&gt;philosophy&lt;/a&gt; you will need to download download the source code.&lt;br&gt;
-For our purposes we'll be using git, as the later parts of this guide will rely upon it for patching.&lt;br&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-Go ahead and download the dwm sourcecode by typing&lt;br&gt;
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git clone https://git.suckless.org/dwm
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;
-then let's cd into the new git directory and prepare our local repo for setting up patches.&lt;br&gt;
-&lt;/p&gt;
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; dwm
-git branch new_feature
-git checkout new_feature
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-
-&lt;div id="outline-container-orge39091f" class="outline-2"&gt;
-&lt;h2 id="orge39091f"&gt;Understanding The Structure&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge39091f"&gt;
-&lt;p&gt;
-The directory you'll find yourself with after cloning dwm will consist of several files, but you'll be working with three of them the most often&lt;br&gt;
-&lt;/p&gt;
-&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
-
-
-&lt;colgroup&gt;
-&lt;col class="org-left"&gt;
-
-&lt;col class="org-left"&gt;
-
-&lt;col class="org-left"&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th scope="col" class="org-left"&gt;Filename&lt;/th&gt;
-&lt;th scope="col" class="org-left"&gt;Role&lt;/th&gt;
-&lt;th scope="col" class="org-left"&gt;notes&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class="org-left"&gt;config.def.h&lt;/td&gt;
-&lt;td class="org-left"&gt;Used to apply patch code to config files,&lt;/td&gt;
-&lt;td class="org-left"&gt;Generates config.h upon compile&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td class="org-left"&gt;config.h&lt;/td&gt;
-&lt;td class="org-left"&gt;quick configuration meant to be edited frequently, updates dwm on make clean config&lt;/td&gt;
-&lt;td class="org-left"&gt;Used for making edits that will effect dwm upon recompile&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td class="org-left"&gt;dwm.c&lt;/td&gt;
-&lt;td class="org-left"&gt;More in depth configuration, being the main source code&lt;/td&gt;
-&lt;td class="org-left"&gt; &lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;
-=&lt;br&gt;
-&lt;/p&gt;
-
-
-
-&lt;p&gt;
-Typically you'll be using config.h when hacking to do things like change keybindings, or small tweaks such as disabling size hints.&lt;br&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-For patches this often won't cut it, and sometimes you'll have to jump into dwm.c which holds both dwm's function declerations and implementations. Additionally by convention you'll want to target config.def.h for config file changes over config.h&lt;br&gt;
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div id="outline-container-orgeb85917" class="outline-2"&gt;
-&lt;h2 id="orgeb85917"&gt;Writing your patch&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgeb85917"&gt;
-&lt;p&gt;
-Before you can apply a patch, you'll need to familiarize yourself ( at least to the extent that it relates to your objective ) with dwm.c sourcecode. After doing so, apply any changes you make to config.def.h or dwm.c using git add. After that you'll want to write a &lt;b&gt;detailed&lt;/b&gt; comment for your commit&lt;br&gt;
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git commit -m &lt;span class="s2"&gt;"SUPER DETAILED AND AWESOME DESCRIPTION HERE"&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;
-Suckless has certain &lt;a href="https://suckless.org/hacking/"&gt;guidelines&lt;/a&gt; to generating and naming diff files. I've taken the liberty of writing a very simple shell script to do all the grunt work for you&lt;br&gt;
-&lt;/p&gt;
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#/usr/bin/sh&lt;/span&gt;
-git format-patch --stdout HEAD^ &amp;gt; &lt;span class="nv"&gt;$1&lt;/span&gt;-&lt;span class="k"&gt;$(&lt;/span&gt;date +&lt;span class="s2"&gt;"%Y%m%d"&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;-&lt;span class="k"&gt;$(&lt;/span&gt;git rev-parse --short &lt;span class="k"&gt;$(&lt;/span&gt;git log &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;'NR==1{print $2}'&lt;/span&gt;&lt;span class="k"&gt;))&lt;/span&gt;.diff
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;
-Name the sh file something like gen-patch and do chmod 777 on it. Then you can call it using something like&lt;br&gt;
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;./gen-patch dwm-holdbar
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-This will generate a properly named patch for you.&lt;br&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-After all of that you should have a nice and fancy dwm patch that you can use on a fresh dwm install!&lt;br&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-Just for those curious here is the holdbar patch that I wrote&lt;br&gt;
-&lt;/p&gt;
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;From 6663a23fc0abce840bbbd31cec36434ee52a93b3 Mon Sep 17 00:00:00 2001
-From: hsszyman &amp;lt;hsszyman@gmail.com&amp;gt;
-Date: Wed, 26 Jun 2019 13:48:41 -0400
-Subject: [PATCH] holdbar
-
----
- config.def.h |  5 +++--
- dwm.c        | 24 ++++++++++++++++++++++--
- 2 files changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/config.def.h b/config.def.h
-index 1c0b587..82c88d5 100644
---- a/config.def.h
-+++ b/config.def.h
-@@ -3,7 +3,7 @@
- /* appearance */
- static const unsigned int borderpx  = 1;        /* border pixel of windows */
- static const unsigned int snap      = 32;       /* snap pixel */
--static const int showbar            = 1;        /* 0 means no bar */
-+static const int showbar            = 0;        /* 0 means no bar */
- static const int topbar             = 1;        /* 0 means bottom bar */
- static const char *fonts[]          = { "monospace:size=10" };
- static const char dmenufont[]       = "monospace:size=10";
-@@ -44,7 +44,7 @@ static const Layout layouts[] = {
- };
-
- /* key definitions */
--#define MODKEY Mod1Mask
-+#define MODKEY Mod4Mask
- #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 &amp;lt;&amp;lt; TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 &amp;lt;&amp;lt; TAG} }, \
-@@ -94,6 +94,7 @@ static Key keys[] = {
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-+        { 0,                            XK_Super_L,holdbar,         {0} },
- };
-
- /* button definitions */
-diff --git a/dwm.c b/dwm.c
-index 4465af1..1933e2d 100644
---- a/dwm.c
-+++ b/dwm.c
-@@ -176,6 +176,7 @@ static void grabbuttons(Client *c, int focused);
- static void grabkeys(void);
- static void incnmaster(const Arg *arg);
- static void keypress(XEvent *e);
-+static void keyrelease(XEvent *e);
- static void killclient(const Arg *arg);
- static void manage(Window w, XWindowAttributes *wa);
- static void mappingnotify(XEvent *e);
-@@ -210,6 +211,7 @@ static void tag(const Arg *arg);
- static void tagmon(const Arg *arg);
- static void tile(Monitor *);
- static void togglebar(const Arg *arg);
-+static void holdbar(const Arg *arg);
- static void togglefloating(const Arg *arg);
- static void toggletag(const Arg *arg);
- static void toggleview(const Arg *arg);
-@@ -245,6 +247,7 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
- static unsigned int numlockmask = 0;
- static void (*handler[LASTEvent]) (XEvent *) = {
-	[ButtonPress] = buttonpress,
-+        [ButtonRelease] = keyrelease,
-	[ClientMessage] = clientmessage,
-	[ConfigureRequest] = configurerequest,
-	[ConfigureNotify] = configurenotify,
-@@ -252,6 +255,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
-	[EnterNotify] = enternotify,
-	[Expose] = expose,
-	[FocusIn] = focusin,
-+        [KeyRelease] = keyrelease,
-	[KeyPress] = keypress,
-	[MappingNotify] = mappingnotify,
-	[MapRequest] = maprequest,
-@@ -275,6 +279,24 @@ static Window root, wmcheckwin;
- struct NumTags { char limitexceeded[LENGTH(tags) &amp;gt; 31 ? -1 : 1]; };
-
- /* function implementations */
-+
-+void
-+keyrelease(XEvent *e) {
-+        if (e-&amp;gt;xkey.keycode == XKeysymToKeycode(dpy, XK_Super_L)) {
-+                selmon-&amp;gt;showbar = 0;
-+                updatebarpos(selmon);
-+                XMoveResizeWindow(dpy, selmon-&amp;gt;barwin, selmon-&amp;gt;wx, selmon-&amp;gt;by, selmon-&amp;gt;ww, bh);
-+                arrange(selmon);
-+        }
-+}
-+
-+void
-+holdbar(const Arg *arg)
-+{
-+        selmon-&amp;gt;showbar = 1;
-+        updatebarpos(selmon);
-+        XMoveResizeWindow(dpy, selmon-&amp;gt;barwin, selmon-&amp;gt;wx, selmon-&amp;gt;by, selmon-&amp;gt;ww, bh);
-+}
- void
- applyrules(Client *c)
- {
-@@ -1826,9 +1848,7 @@ updatebarpos(Monitor *m)
-	m-&amp;gt;wy = m-&amp;gt;my;
-	m-&amp;gt;wh = m-&amp;gt;mh;
-	if (m-&amp;gt;showbar) {
--		m-&amp;gt;wh -= bh;
-		m-&amp;gt;by = m-&amp;gt;topbar ? m-&amp;gt;wy : m-&amp;gt;wy + m-&amp;gt;wh;
--		m-&amp;gt;wy = m-&amp;gt;topbar ? m-&amp;gt;wy + bh : m-&amp;gt;wy;
-	} else
-		m-&amp;gt;by = -bh;
- }
--- 
-2.22.0
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description><category>C</category><category>dwm</category><category>linux</category><category>shell scripting</category><guid>https://hsszyman.github.io/posts/dwm/</guid><pubDate>Thu, 27 Jun 2019 22:14:25 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/dwm-holdbar/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>C</category><category>dwm</category><category>linux</category><category>shell scripting</category><guid>https://hsszyman.github.io/posts/dwm-holdbar/</guid><pubDate>Thu, 27 Jun 2019 22:14:25 GMT</pubDate></item></channel></rss>

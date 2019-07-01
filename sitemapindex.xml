@@ -7,38 +7,46 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://hsszyman.github.io/categories/bash.xml</loc>
-  <lastmod>2019-06-29T23:40:00Z</lastmod>
+  <lastmod>2019-07-01T00:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/c.xml</loc>
-  <lastmod>2019-06-29T03:03:00Z</lastmod>
+  <lastmod>2019-07-01T00:33:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/cat_programming.xml</loc>
-  <lastmod>2019-06-29T23:40:00Z</lastmod>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/dmenu.xml</loc>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/dwm.xml</loc>
-  <lastmod>2019-06-29T03:03:00Z</lastmod>
+  <lastmod>2019-07-01T00:33:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/linux.xml</loc>
-  <lastmod>2019-06-29T23:40:00Z</lastmod>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/python.xml</loc>
-  <lastmod>2019-06-29T23:40:00Z</lastmod>
+  <lastmod>2019-07-01T00:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/categories/shell-scripting.xml</loc>
-  <lastmod>2019-06-29T03:03:00Z</lastmod>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://hsszyman.github.io/categories/tcl.xml</loc>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/rss.xml</loc>
-  <lastmod>2019-06-29T23:40:00Z</lastmod>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://hsszyman.github.io/sitemap.xml</loc>
-  <lastmod>2019-06-30T01:18:00Z</lastmod>
+  <lastmod>2019-07-01T06:42:00Z</lastmod>
  </sitemap>
 </sitemapindex>
