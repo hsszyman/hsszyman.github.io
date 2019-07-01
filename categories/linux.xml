@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 07:05:46 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orgebe2698" class="outline-2"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hayden's Tinkering Blog (Posts about linux)</title><link>https://hsszyman.github.io/</link><description></description><atom:link href="https://hsszyman.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:hsszyman@gmail.com"&gt;Hayden Szymanski&lt;/a&gt; </copyright><lastBuildDate>Mon, 01 Jul 2019 07:22:04 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Browsing Youtube with Dmenu</title><link>https://hsszyman.github.io/posts/browsing-youtube-with-dmenu/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div id="outline-container-orgebe2698" class="outline-2"&gt;
 &lt;h2 id="orgebe2698"&gt;Dmenu + youtube-viewer&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-orgebe2698"&gt;
 &lt;p&gt;
@@ -41,9 +41,9 @@ The first Issue I ran into was order of execution issues when using a main funct
 This will run your main function after all other functions have been called ( barring you put the actual function execution at the end of the file ) 
 &lt;/p&gt;
 
-&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/modularizing-python/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>python</category><guid>https://hsszyman.github.io/posts/modularizing-python/</guid><pubDate>Sat, 29 Jun 2019 22:42:12 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm-holdbar/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;div id="outline-container-org0a82b8a" class="outline-2"&gt;
-&lt;h2 id="org0a82b8a"&gt;DWM In a Nutshell&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org0a82b8a"&gt;
+&lt;p&gt;&lt;a href="https://hsszyman.github.io/posts/modularizing-python/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>python</category><guid>https://hsszyman.github.io/posts/modularizing-python/</guid><pubDate>Sat, 29 Jun 2019 22:42:12 GMT</pubDate></item><item><title>Hacking DWM : Holdbar</title><link>https://hsszyman.github.io/posts/dwm-holdbar/</link><dc:creator>Hayden Szymanski</dc:creator><description>&lt;div&gt;&lt;div id="outline-container-org5f87b00" class="outline-2"&gt;
+&lt;h2 id="org5f87b00"&gt;DWM In a Nutshell&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org5f87b00"&gt;
 &lt;p&gt;
 Dwm is a window manager for Linux, and while not as fully featured as something like I3, it is much more configurable. While most window managers rely on customization through a seperate config file dwm instead opts for users to edit its source code directly. Initially this seems like an absurd requirement to configure your system, but it's a lot more manageable when the source code is less than 2000 lines.&lt;br&gt;
 &lt;/p&gt;
@@ -56,9 +56,9 @@ In a later blog post I'll go into more details on the unique aspects of dwm, but
 
 
 
-&lt;div id="outline-container-org5734cfd" class="outline-2"&gt;
-&lt;h2 id="org5734cfd"&gt;Coming up with a problem to solve&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org5734cfd"&gt;
+&lt;div id="outline-container-orgbed280c" class="outline-2"&gt;
+&lt;h2 id="orgbed280c"&gt;Coming up with a problem to solve&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbed280c"&gt;
 &lt;p&gt;
 One feature I try to implement on any new window manager I use is only showing the status bar when I'm holding the manager's Mod key, as well as painting that status bar over the rest of the display. This will let me save space while at the same time giving me frequent access to the information on the status bar.&lt;br&gt;
 &lt;/p&gt;
